@@ -2,6 +2,12 @@
 
 CMD=$0
 
+if [ $# -lt 2 ];then
+    echo "Command Format: ${CMD} -m [AdHoc/AppStore/Enterprise/Development]"
+    echo ""
+    exit 2
+fi
+
 while getopts 'm:' opt
 do
     case "$opt" in

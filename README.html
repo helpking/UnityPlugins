@@ -1,0 +1,2250 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body {
+  width: 45em;
+  border: 1px solid #ddd;
+  outline: 1300px solid #fff;
+  margin: 16px auto;
+}
+
+body .markdown-body
+{
+  padding: 30px;
+}
+
+@font-face {
+  font-family: fontawesome-mini;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+@font-face {
+  font-family: octicons-anchor;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+.markdown-body {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  color: #333333;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.markdown-body a {
+  background: transparent;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline: 0;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: bold;
+}
+
+.markdown-body mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.markdown-body sup {
+  top: -0.5em;
+}
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.markdown-body img {
+  border: 0;
+}
+
+.markdown-body hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+.markdown-body pre {
+  overflow: auto;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+.markdown-body input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body html input[disabled] {
+  cursor: default;
+}
+
+.markdown-body input {
+  line-height: normal;
+}
+
+.markdown-body input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body .codehilitetable {
+  border: 0;
+  border-spacing: 0;
+}
+
+.markdown-body .codehilitetable tr {
+  border: 0;
+}
+
+.markdown-body .codehilitetable pre,
+.markdown-body .codehilitetable div.codehilite {
+  margin: 0;
+}
+
+.markdown-body .linenos,
+.markdown-body .code,
+.markdown-body .codehilitetable td {
+  border: 0;
+  padding: 0;
+}
+
+.markdown-body td:not(.linenos) .linenodiv {
+  padding: 0 !important;
+}
+
+.markdown-body .code {
+  width: 100%;
+}
+
+.markdown-body .linenos div pre,
+.markdown-body .linenodiv pre,
+.markdown-body .linenodiv {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.markdown-body .code div pre,
+.markdown-body .code div {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.markdown-body * {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body input {
+  font: 13px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.4;
+}
+
+.markdown-body a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+.markdown-body a:hover,
+.markdown-body a:focus,
+.markdown-body a:active {
+  text-decoration: underline;
+}
+
+.markdown-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.markdown-body hr:before,
+.markdown-body hr:after {
+  display: table;
+  content: " ";
+}
+
+.markdown-body hr:after {
+  clear: both;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.markdown-body h1 {
+  font-size: 30px;
+}
+
+.markdown-body h2 {
+  font-size: 21px;
+}
+
+.markdown-body h3 {
+  font-size: 16px;
+}
+
+.markdown-body h4 {
+  font-size: 14px;
+}
+
+.markdown-body h5 {
+  font-size: 12px;
+}
+
+.markdown-body h6 {
+  font-size: 11px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body code,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body kbd {
+  background-color: #e7e7e7;
+  background-image: -moz-linear-gradient(#fefefe, #e7e7e7);
+  background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
+  background-image: linear-gradient(#fefefe, #e7e7e7);
+  background-repeat: repeat-x;
+  border-radius: 2px;
+  border: 1px solid #cfcfcf;
+  color: #000;
+  padding: 3px 5px;
+  line-height: 10px;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  display: inline-block;
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body .headeranchor-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding-right: 6px;
+  padding-left: 30px;
+  margin-left: -30px;
+}
+
+.markdown-body .headeranchor-link:focus {
+  outline: none;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.markdown-body h1 .headeranchor,
+.markdown-body h2 .headeranchor,
+.markdown-body h3 .headeranchor,
+.markdown-body h4 .headeranchor,
+.markdown-body h5 .headeranchor,
+.markdown-body h6 .headeranchor {
+  display: none;
+  color: #000;
+  vertical-align: middle;
+}
+
+.markdown-body h1:hover .headeranchor-link,
+.markdown-body h2:hover .headeranchor-link,
+.markdown-body h3:hover .headeranchor-link,
+.markdown-body h4:hover .headeranchor-link,
+.markdown-body h5:hover .headeranchor-link,
+.markdown-body h6:hover .headeranchor-link {
+  height: 1em;
+  padding-left: 8px;
+  margin-left: -30px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .headeranchor-link .headeranchor,
+.markdown-body h2:hover .headeranchor-link .headeranchor,
+.markdown-body h3:hover .headeranchor-link .headeranchor,
+.markdown-body h4:hover .headeranchor-link .headeranchor,
+.markdown-body h5:hover .headeranchor-link .headeranchor,
+.markdown-body h6:hover .headeranchor-link .headeranchor {
+  display: inline-block;
+}
+
+.markdown-body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.75em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h3 {
+  font-size: 1.5em;
+  line-height: 1.43;
+}
+
+.markdown-body h4 {
+  font-size: 1.25em;
+}
+
+.markdown-body h5 {
+  font-size: 1em;
+}
+
+.markdown-body h6 {
+  font-size: 1em;
+  color: #777;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body .admonition {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body hr {
+  height: 4px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+.markdown-body table th {
+  font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body code,
+.markdown-body samp {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after {
+  letter-spacing: -0.2em;
+  content: "\00a0";
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .codehilite {
+  margin-bottom: 16px;
+}
+
+.markdown-body .codehilite pre,
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+}
+
+.markdown-body .codehilite pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre code {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after {
+  content: normal;
+}
+
+/* Admonition */
+.markdown-body .admonition {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  position: relative;
+  border-radius: 3px;
+  border: 1px solid #e0e0e0;
+  border-left: 6px solid #333;
+  padding: 10px 10px 10px 30px;
+}
+
+.markdown-body .admonition table {
+  color: #333;
+}
+
+.markdown-body .admonition p {
+  padding: 0;
+}
+
+.markdown-body .admonition-title {
+  font-weight: bold;
+  margin: 0;
+}
+
+.markdown-body .admonition>.admonition-title {
+  color: #333;
+}
+
+.markdown-body .attention>.admonition-title {
+  color: #a6d796;
+}
+
+.markdown-body .caution>.admonition-title {
+  color: #d7a796;
+}
+
+.markdown-body .hint>.admonition-title {
+  color: #96c6d7;
+}
+
+.markdown-body .danger>.admonition-title {
+  color: #c25f77;
+}
+
+.markdown-body .question>.admonition-title {
+  color: #96a6d7;
+}
+
+.markdown-body .note>.admonition-title {
+  color: #d7c896;
+}
+
+.markdown-body .admonition:before,
+.markdown-body .attention:before,
+.markdown-body .caution:before,
+.markdown-body .hint:before,
+.markdown-body .danger:before,
+.markdown-body .question:before,
+.markdown-body .note:before {
+  font: normal normal 16px fontawesome-mini;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  line-height: 1.5;
+  color: #333;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.markdown-body .admonition:before {
+  content: "\f056\00a0";
+  color: 333;
+}
+
+.markdown-body .attention:before {
+  content: "\f058\00a0";
+  color: #a6d796;
+}
+
+.markdown-body .caution:before {
+  content: "\f06a\00a0";
+  color: #d7a796;
+}
+
+.markdown-body .hint:before {
+  content: "\f05a\00a0";
+  color: #96c6d7;
+}
+
+.markdown-body .danger:before {
+  content: "\f057\00a0";
+  color: #c25f77;
+}
+
+.markdown-body .question:before {
+  content: "\f059\00a0";
+  color: #96a6d7;
+}
+
+.markdown-body .note:before {
+  content: "\f040\00a0";
+  color: #d7c896;
+}
+
+.markdown-body .admonition::after {
+  content: normal;
+}
+
+.markdown-body .attention {
+  border-left: 6px solid #a6d796;
+}
+
+.markdown-body .caution {
+  border-left: 6px solid #d7a796;
+}
+
+.markdown-body .hint {
+  border-left: 6px solid #96c6d7;
+}
+
+.markdown-body .danger {
+  border-left: 6px solid #c25f77;
+}
+
+.markdown-body .question {
+  border-left: 6px solid #96a6d7;
+}
+
+.markdown-body .note {
+  border-left: 6px solid #d7c896;
+}
+
+.markdown-body .admonition>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .admonition>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* progress bar*/
+.markdown-body .progress {
+  display: block;
+  width: 300px;
+  margin: 10px 0;
+  height: 24px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #ededed;
+  position: relative;
+  box-shadow: inset -1px 1px 3px rgba(0, 0, 0, .1);
+}
+
+.markdown-body .progress-label {
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  width: 100%; margin: 0;
+  line-height: 24px;
+  color: #333;
+  text-shadow: 1px 1px 0 #fefefe, -1px -1px 0 #fefefe, -1px 1px 0 #fefefe, 1px -1px 0 #fefefe, 0 1px 0 #fefefe, 0 -1px 0 #fefefe, 1px 0 0 #fefefe, -1px 0 0 #fefefe, 1px 1px 2px #000;
+  -webkit-font-smoothing: antialiased !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.markdown-body .progress-bar {
+  height: 24px;
+  float: left;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #96c6d7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .1);
+  background-size: 30px 30px;
+  background-image: -webkit-linear-gradient(
+    135deg, rgba(255, 255, 255, .4) 27%,
+    transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%,
+    transparent 77%, transparent
+  );
+  background-image: -moz-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -ms-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -o-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+}
+
+.markdown-body .progress-100plus .progress-bar {
+  background-color: #a6d796;
+}
+
+.markdown-body .progress-80plus .progress-bar {
+  background-color: #c6d796;
+}
+
+.markdown-body .progress-60plus .progress-bar {
+  background-color: #d7c896;
+}
+
+.markdown-body .progress-40plus .progress-bar {
+  background-color: #d7a796;
+}
+
+.markdown-body .progress-20plus .progress-bar {
+  background-color: #d796a6;
+}
+
+.markdown-body .progress-0plus .progress-bar {
+  background-color: #c25f77;
+}
+
+.markdown-body .candystripe-animate .progress-bar{
+  -webkit-animation: animate-stripes 3s linear infinite;
+  -moz-animation: animate-stripes 3s linear infinite;
+  animation: animate-stripes 3s linear infinite;
+}
+
+@-webkit-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@-moz-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+.markdown-body .gloss .progress-bar {
+  box-shadow:
+    inset 0 4px 12px rgba(255, 255, 255, .7),
+    inset 0 -12px 0 rgba(0, 0, 0, .05);
+}
+
+/* Multimarkdown Critic Blocks */
+.markdown-body .critic_mark {
+  background: #ff0;
+}
+
+.markdown-body .critic_delete {
+  color: #c82829;
+  text-decoration: line-through;
+}
+
+.markdown-body .critic_insert {
+  color: #718c00 ;
+  text-decoration: underline;
+}
+
+.markdown-body .critic_comment {
+  color: #8e908c;
+  font-style: italic;
+}
+
+.markdown-body .headeranchor {
+  font: normal normal 16px octicons-anchor;
+  line-height: 1;
+  display: inline-block;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.headeranchor:before {
+  content: '\f05c';
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  margin: 0 4px 0.25em -20px;
+  vertical-align: middle;
+}
+
+/* Media */
+@media only screen and (min-width: 480px) {
+  .markdown-body {
+    font-size:14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .markdown-body {
+    font-size:16px;
+  }
+}
+
+@media print {
+  .markdown-body * {
+    background: transparent !important;
+    color: black !important;
+    filter:none !important;
+    -ms-filter: none !important;
+  }
+
+  .markdown-body {
+    font-size:12pt;
+    max-width:100%;
+    outline:none;
+    border: 0;
+  }
+
+  .markdown-body a,
+  .markdown-body a:visited {
+    text-decoration: underline;
+  }
+
+  .markdown-body .headeranchor-link {
+    display: none;
+  }
+
+  .markdown-body a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  .markdown-body abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  .markdown-body .ir a:after,
+  .markdown-body a[href^="javascript:"]:after,
+  .markdown-body a[href^="#"]:after {
+    content: "";
+  }
+
+  .markdown-body pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .markdown-body pre,
+  .markdown-body blockquote {
+    border: 1px solid #999;
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+
+  .markdown-body .progress,
+  .markdown-body .progress-bar {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .markdown-body .progress {
+    border: 1px solid #ddd;
+  }
+
+  .markdown-body .progress-bar {
+    height: 22px;
+    border-right: 1px solid #ddd;
+  }
+
+  .markdown-body tr,
+  .markdown-body img {
+    page-break-inside: avoid;
+  }
+
+  .markdown-body img {
+    max-width: 100% !important;
+  }
+
+  .markdown-body p,
+  .markdown-body h2,
+  .markdown-body h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .markdown-body h2,
+  .markdown-body h3 {
+    page-break-after: avoid;
+  }
+}
+</style><title>README</title></head><body><article class="markdown-body"><h1 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>概述</h1>
+<hr />
+<h2 id="contents"><a name="user-content-contents" href="#contents" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>contents</h2>
+<p><a href="">0.机能概要说明</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#1assetbundle-build">1.AssetBundle Build</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#10operation">1.0.Operation</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#11setting-options">1.1.Setting Options</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#111setting-file">1.1.1.Setting File</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#112properties">1.1.2.Properties</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#1121states">1.1.2.1.States</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#113operation-setting">1.1.3.Operation Setting</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#1131operation-setting-options">1.1.3.1.Operation Setting Options</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#1132ignore-options">1.1.3.2.Ignore Options</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#114others">1.1.4.Others</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#1141export-dir">1.1.4.1.Export Dir</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#1142assetbundle-reference-map-file">1.1.4.2.AssetBundle Reference Map File</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#2upload">2.Upload</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#20upload-list">2.0.Upload List</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#201check-mode">2.0.1.Check Mode</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#202target-setting-detail">2.0.2.Target Setting Detail</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#21operation">2.1.Operation</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#22local-backup">2.2.Local BackUp</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#23result">2.3.Result</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#3download">3.Download</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#30download-list">3.0.Download List</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#31operation">3.1.Operation</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#32download-dir-setting">3.2.Download Dir Setting</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#33download-manager-script">3.3.Download Manager Script</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#4assetbundle-load">4.AssetBundle Load</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#41synchronous-load-interface">4.1.Synchronous Load Interface</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#42asynchronous-load-interface">4.2.Asynchronous Load Interface</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#422asynchronous-callback-define">4.2.2.Asynchronous CallBack Define</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#4221load-target-type-define">4.2.2.1.Load Target Type Define</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#others-setting">5.Others Setting</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#50correlation-type-define">5.0.Correlation Type Define</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#501build-mode-define">5.0.1.Build Mode Define</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#51build-info-setting">5.1.Build Info Setting</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#52server-config">5.2.Server Config</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#521progress-tips">5.2.1.ProgressTips</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#53progress-bar">5.3.Progress Bar</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#531create-ui">5.3.1.Create UI</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#6build">6.Build</a> -&gt; 打包成Android/iOS（apk文件/ipa文件）</p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#61android-build">6.1.Android Build</a> -&gt; 打包Android(生成apk文件)</p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#62ios-build">6.2.iOS Build</a> -&gt; 打包iOS（先导出iOS文件后，用Xcode生成ipa文件）</p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#8iap">8.IAP</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#9faq">9.FAQ</a></p>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#10remaining-problems">10.Remaining Problems</a></p>
+<hr />
+<h3 id="1assetbundle-build"><a name="user-content-1assetbundle-build" href="#1assetbundle-build" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.AssetBundle Build</h3>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#contents">返回目录</a></p>
+<h4 id="10operation"><a name="user-content-10operation" href="#10operation" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.0.Operation</h4>
+<table>
+<thead>
+<tr>
+<th align="center">图：1-0-1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/AssetBundle_menu.png" /></td>
+</tr>
+</tbody>
+</table>
+<p>打包操作：</p>
+<ul>
+<li>
+<p>iOS<br />
+<code>Menu -&gt; Tools -&gt; AssetBundles -&gt; BuildForIOS</code></p>
+</li>
+<li>
+<p>Android<br />
+<code>Menu -&gt; Tools -&gt; AssetBundles -&gt; BuildForAndroid</code></p>
+</li>
+</ul>
+<p><code>当然，在导出之前，需要对导出对象进行设定。</code></p>
+<p><code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#11setting-options">1.1.Setting Options</a></p>
+<h4 id="11setting-options"><a name="user-content-11setting-options" href="#11setting-options" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.1.Setting Options</h4>
+<h5 id="111setting-file"><a name="user-content-111setting-file" href="#111setting-file" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.1.1.Setting File</h5>
+<p><code>文件名：BundlesConfig.asset</code><br />
+<code>路径：Resources/Conf</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">图：1-1-0 (初始化)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/BundlesConfig_init.png" /></td>
+</tr>
+</tbody>
+</table>
+<p><code>该依赖文件，最后将导出成Json文件，跟所有打包成功的AssetBundle文件一同上传到CDN服务上。</code></p>
+<h5 id="112properties"><a name="user-content-112properties" href="#112properties" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.1.2.Properties</h5>
+<pre><code>1） FileSuffix：AssetBundle打包后的文件后缀名
+2） Resoures：欲打包的资源对象列表
+    a) Path : 目录
+    b) Mode : 打包模式
+    c) IgnoreList : 忽略列表（在忽略列表中的文件，将不被打包进AssetBundle包。）
+    d) State : 状态
+3） UnResoures：非打包对象一览（在ipa/apk打包前，移出工程，以免打包进二进制包。打包完后，移回相应目录，以免影响正常开发）
+</code></pre>
+
+<p><code>忽略列表详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#1132ignore-options">1.1.3.2.Ignore Options</a></p>
+<p><code>状态详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#1121states">1.1.2.1.States</a></p>
+<h6 id="1121states"><a name="user-content-1121states" href="#1121states" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.1.2.1.States</h6>
+<p>状态设定采用位控制设定。</p>
+<p>定义如下：<br />
+<code><pre><br />
+    // Bundle状态.<br />
+    public enum TBundleState {<br />
+        // 无.<br />
+        None = 0x00000000,<br />
+        // IOS需要导出.<br />
+        IosNeed = 0x00000001,<br />
+        // IOS导出完成.<br />
+        IosCompleted = 0x00000002,<br />
+        // 安卓需要导出.<br />
+        AndroidNeed = 0x00000010,<br />
+        // 安卓导出完成.<br />
+        AndroidCompleted = 0x00000020,<br />
+        // 所有都需要导出.<br />
+        AllNeed = (IosNeed | AndroidNeed),<br />
+        // 所有都需要导出.<br />
+        AllCompleted = (IosCompleted | AndroidCompleted)<br />
+    }<br />
+</code></pre></p>
+<ul>
+<li>状态说明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">状态</th>
+<th align="center">值（十六进制）</th>
+<th align="center">值（十进制）</th>
+<th align="left">说明</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">None</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="left">无</td>
+<td align="left">无</td>
+</tr>
+<tr>
+<td align="left">IosNeed</td>
+<td align="center">0x00000001</td>
+<td align="center">1</td>
+<td align="left">iOS导出位</td>
+<td align="left">1：导出 ： 0：不导出</td>
+</tr>
+<tr>
+<td align="left">IosCompleted</td>
+<td align="center">0x00000002</td>
+<td align="center">2</td>
+<td align="left">iOS完成位</td>
+<td align="left">2：完成 ： 0：尚未完成</td>
+</tr>
+<tr>
+<td align="left">AndroidNeed</td>
+<td align="center">0x00000010</td>
+<td align="center">16</td>
+<td align="left">Android导出位</td>
+<td align="left">16：导出 ： 0：不导出</td>
+</tr>
+<tr>
+<td align="left">AndroidCompleted</td>
+<td align="center">0x00000020</td>
+<td align="center">32</td>
+<td align="left">Android完成位</td>
+<td align="left">32：完成 ： 0：尚未完成</td>
+</tr>
+<tr>
+<td align="left">AllNeed</td>
+<td align="center">0x00000011</td>
+<td align="center">17</td>
+<td align="left">iOS&amp;Android导出位</td>
+<td align="left">17：导出 ： 0：不导出</td>
+</tr>
+<tr>
+<td align="left">AllCompleted</td>
+<td align="center">0x00000022</td>
+<td align="center">34</td>
+<td align="left">iOS&amp;Android导出位</td>
+<td align="left">34：完成 ： 0：尚未完成</td>
+</tr>
+</tbody>
+</table>
+<p><code>备注：</code></p>
+<p>-&gt; 初始状态：（IosNeed | AndroidNeed）=  0x00000011（17）</p>
+<p>-&gt; 仅iOS导出完成：（IosNeed | AndroidNeed | IosCompleted） = 0x00000013（19）</p>
+<p>-&gt; 仅Android导出完成：（IosNeed | AndroidNeed | AndroidCompleted) = 0x00000031（49）</p>
+<p>-&gt; 全部（iOS&amp;Android）导出完成：（IosNeed | AndroidNeed | IosCompleted | AndroidCompleted) = 0x00000033（51）</p>
+<h5 id="113operation-setting"><a name="user-content-113operation-setting" href="#113operation-setting" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.1.3.Operation Setting</h5>
+<p>在Project窗口右键</p>
+<table>
+<thead>
+<tr>
+<th align="center">图：1-1-3-0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/BundlesConfig_Control.png" /></td>
+</tr>
+</tbody>
+</table>
+<h5 id="1131operation-setting-options"><a name="user-content-1131operation-setting-options" href="#1131operation-setting-options" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.1.3.1.Operation Setting Options</h5>
+<ul>
+<li>操作</li>
+</ul>
+<p><code>右键菜单：Bundles -&gt; Config -&gt; Resoures</code></p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th align="center">说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ignore</td>
+<td align="center">忽略选项</td>
+<td>详情参看：1.1.3.2.忽略选项</td>
+</tr>
+<tr>
+<td>OneDir</td>
+<td align="center">单一目录</td>
+<td>指定目录下，一个文件一个包，并添加进打包对象配置文件（BundlesConfig.asset）。如已经存在，则重置状态位。使之在下一次打包中重新变成打包对象。</td>
+</tr>
+<tr>
+<td>FileOneToOne</td>
+<td align="center">单一文件模式</td>
+<td>指定目录下，一个文件一个包，并添加进打包对象配置文件（BundlesConfig.asset）。如已经存在，则重置状态位。使之在下一次打包中重新变成打包对象。</td>
+</tr>
+<tr>
+<td>TopDirOneToOne</td>
+<td align="center">子目录模式</td>
+<td>指定目录下的子目录，一个目录一个包，并添加进打包对象配置文件（BundlesConfig.asset）。如已经存在，则重置状态位。使之在下一次打包中重新变成打包对象。</td>
+</tr>
+<tr>
+<td>SceneOneToOne</td>
+<td align="center">单一场景模式</td>
+<td>一个场景，一个包，并添加进打包对象配置文件（BundlesConfig.asset）。如已经存在，则重置状态位。使之在下一次打包中重新变成打包对象。</td>
+</tr>
+<tr>
+<td>Remove</td>
+<td align="center">移除</td>
+<td>从当前打包对象配置文件（BundlesConfig.asset）中，移除当前选中对象。</td>
+</tr>
+<tr>
+<td>Clear</td>
+<td align="center">清空</td>
+<td>清空打包对象配置文件（BundlesConfig.asset）。</td>
+</tr>
+</tbody>
+</table>
+<h5 id="1132ignore-options"><a name="user-content-1132ignore-options" href="#1132ignore-options" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.1.3.2.Ignore Options</h5>
+<ul>
+<li>操作</li>
+</ul>
+<p><code>右键菜单：Bundles -&gt; Config -&gt; Resoures -&gt; Ignore</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">图：1-1-3-2-0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/BundlesConfig_Ignore.png" /></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>选项说明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th align="center">说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ignore</td>
+<td align="center">忽略</td>
+<td>往打包对象配置文件（BundlesConfig.asset）中,相应AssetBundle包中相应对象，添加忽略文件</td>
+</tr>
+<tr>
+<td>Remove</td>
+<td align="center">移除</td>
+<td>往打包对象配置文件（BundlesConfig.asset）中,相应AssetBundle包的忽略列表中，移除当前选中文件，使之在AssetBundle打包时，成为打包对象</td>
+</tr>
+<tr>
+<td>Clear</td>
+<td align="center">清空</td>
+<td>清空当前打包资源对象的忽略列表</td>
+</tr>
+</tbody>
+</table>
+<h5 id="114others"><a name="user-content-114others" href="#114others" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.1.4.Others</h5>
+<h5 id="1141export-dir"><a name="user-content-1141export-dir" href="#1141export-dir" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.1.4.1.Export Dir</h5>
+<p><code>导出目录：Assets/StreamingAssets/(Application.streamingAssetsPath)</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">图：1-1-4-1-0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/AssetBundle_OutputDir.png" /></td>
+</tr>
+</tbody>
+</table>
+<p><code>一般的AssetBundle包目录：Assets/StreamingAssets/Normal</code><br />
+<code>Scene的AssetBundle包目录：Assets/StreamingAssets/Scene</code></p>
+<h5 id="1142assetbundle-reference-map-file"><a name="user-content-1142assetbundle-reference-map-file" href="#1142assetbundle-reference-map-file" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1.1.4.2.AssetBundle Reference Map File</h5>
+<p>依赖文件列表文件如下：</p>
+<p><code>文件名：BundlesMap.asset</code><br />
+<code>路径：Resources/Conf</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">图：1-1-4-2-1 依赖文件列表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/BundlesMap_Detail.png" /></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th align="left">说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">BundleID。自动生成。</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Type</td>
+<td align="left">类型</td>
+<td>分为：Normal和Scene</td>
+</tr>
+<tr>
+<td>Path</td>
+<td align="left">路径</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Targets</td>
+<td align="left">对象列表。</td>
+<td>在上述路径下，根据<a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#111setting-file">1.1.1.Setting File</a>中得设定，排除忽略列表中设定的文件，最后成为打包对象的列表一览</td>
+</tr>
+</tbody>
+</table>
+<p><code>该依赖文件，最后将导出成Json文件，跟所有打包成功的AssetBundle文件一同上传到CDN服务上。</code></p>
+<hr />
+<h3 id="2upload"><a name="user-content-2upload" href="#2upload" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.Upload</h3>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#contents">返回目录</a></p>
+<p>上传CND服务器信息（如：地址，端口号，账号，密码等信息）设定，详情参看：5.2.1.上传服务器设定。</p>
+<h4 id="20upload-list"><a name="user-content-20upload-list" href="#20upload-list" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.0.Upload List</h4>
+<p><code>文件名：UploadList.asset</code><br />
+<code>路径：Resources/Conf</code></p>
+<p>上传列表文件如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">图：2-0-1 上传列表文件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/UploadList_Detail.png" /></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="left">项目</th>
+<th align="left">说明</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">CheckMode</td>
+<td align="left">检测模式</td>
+<td align="left">对已经打包的文件进行检测。详情参看：2.0.1 检测模式</td>
+</tr>
+<tr>
+<td align="left">BuildTarget</td>
+<td align="left">打包对象</td>
+<td align="left">保存当前打包的对象临时参数。如（iOS/Android）。在打包是，将自动设置该值，无需手动指定</td>
+</tr>
+<tr>
+<td align="left">Compress Format</td>
+<td align="left">压缩格式</td>
+<td align="left">预留变量。在AssetBundle打包时采用的压缩格式，以及下载时解压的格式。目前AssetBundle不进行压缩打包。</td>
+</tr>
+<tr>
+<td align="left">Manifest Upload</td>
+<td align="left">Manifest上传标志位</td>
+<td align="left">如果制定该标志位，打包后的AssetBundle的各个相关文件的Manifest文件，也将被上传和下载。默认不选中。但是即便不选中，相关的Manifest文件也将在本地被备份。<code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#22local-backup">2.2.Local BackUp</a></td>
+</tr>
+<tr>
+<td align="left">BundlesOutputDir</td>
+<td align="left">AssetBundle打包输出目录</td>
+<td align="left"><code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#1141export-dir">1.1.4.1.Export Dir</a></td>
+</tr>
+<tr>
+<td align="left">Targets</td>
+<td align="left">上传目标列表</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<h5 id="201check-mode"><a name="user-content-201check-mode" href="#201check-mode" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.0.1.Check Mode</h5>
+<ul>
+<li>检测模式定义<br />
+<pre><code><br />
+    // 检测模式.<br />
+    public enum TCheckMode {<br />
+        // Unity自带模式(hash128).<br />
+        Unity3d_Hash128, // 暂时不支持<br />
+        // 自定义模式(Md5).<br />
+        Custom_Md5,<br />
+        // 默认.<br />
+        Defult = Custom_Md5<br />
+    }<br />
+</code></pre></li>
+</ul>
+<p><code>目前采用的校验为：自定义模式(Md5)</code></p>
+<p>1）在AssetBundle再次打包的时候，根据检测模式，来检测当前文件是否与上次上传文件有无变更。无变更，则不上传。<br />
+2）在下载后，会对文件进行检测，如果根据检测模式，当前文件检测失败，则将继续要求重新下载。直到下载成功，或者超过最大重新下载数。<br />
+<code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#202target-setting-detail">2.0.2.Target Setting Detail</a></p>
+<h5 id="202target-setting-detail"><a name="user-content-202target-setting-detail" href="#202target-setting-detail" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.0.2.Target Setting Detail</h5>
+<p>上传对象结构定义</p>
+<p>如图：上传对象结构定义</p>
+<table>
+<thead>
+<tr>
+<th align="center">图：2-0-2-0 MainManifest</th>
+<th align="center">图：2-0-2-1 Normal</th>
+<th align="center">图：2-0-2-2 Scene</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/Upload_Item_0.png" /></td>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/Upload_Item_2.png" /></td>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/Upload_Item_2.png" /></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>MainManifest对象：（如图：2-0-2-0）</li>
+<li>Normal对象：（如图：2-0-2-1）</li>
+<li>Scene对象：（如图：2-0-2-2）</li>
+</ul>
+<p><code>项目说明</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">项目名</th>
+<th align="left">说明</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">No</td>
+<td align="left">上传对象No.</td>
+<td align="left">全局唯一，自动采番。下载列生成中，为了保证唯一性，保留此No。</td>
+</tr>
+<tr>
+<td align="left">ID</td>
+<td align="left">AssetBundle ID</td>
+<td align="left">打包时自动生成的ID,从打包，上传，下载，加载。至始至终，将被一直保留</td>
+</tr>
+<tr>
+<td align="left">BundleType</td>
+<td align="left">Bundle类型</td>
+<td align="left">分为一般AssetBundle文件：Normal和场景文件：Scene</td>
+</tr>
+<tr>
+<td align="left">FileType</td>
+<td align="left">文件类型</td>
+<td align="left">分为Manifest和Bundle</td>
+</tr>
+<tr>
+<td align="left">BuildMode</td>
+<td align="left">打包模式</td>
+<td align="left"><code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#501build-mode-define">5.0.1.Build Mode Define</a></td>
+</tr>
+<tr>
+<td align="left">MarketVersion</td>
+<td align="left">市场版本号</td>
+<td align="left">面向不同平台，所采用的版本号</td>
+</tr>
+<tr>
+<td align="left">AppVersion</td>
+<td align="left">App自己的开发版本号</td>
+<td align="left">开发&amp;审核用的对外版本号</td>
+</tr>
+<tr>
+<td align="left">DataSize</td>
+<td align="left">数据大小</td>
+<td align="left">打包AssetBundle成功后，所生成的Bundle文件大小</td>
+</tr>
+<tr>
+<td align="left">ManifestDataSize</td>
+<td align="left">Manifest文件大小</td>
+<td align="left">同上</td>
+</tr>
+<tr>
+<td align="left">Md5</td>
+<td align="left">Md5码</td>
+<td align="left">打包AssetBundle成功后,所生成Bundle文件的Md5码。在AssetBundle文件打包，校验文件与上次上传是否有所变更，文件下载，校验文件的完整性等时，将会用到此验证码</td>
+</tr>
+<tr>
+<td align="left">ManifestMd5</td>
+<td align="left">Manifest文件的Md5码</td>
+<td align="left">同上</td>
+</tr>
+<tr>
+<td align="left">HashCode</td>
+<td align="left">HashCode码</td>
+<td align="left">Unity3d 打包AssetBundle后，自动生成校验用的Hash128验证码。目前尚未使用，保留用</td>
+</tr>
+<tr>
+<td align="left">UploadDataTime</td>
+<td align="left">上传时间</td>
+<td align="left">在上传按钮按下同时，会预先，对所有上传对象进行，自动采番。无需手动设定</td>
+</tr>
+<tr>
+<td align="left">Scraped</td>
+<td align="left">废弃标志位</td>
+<td align="left">设定废弃标志位，对象若一经上传到服务器，则不删除服务器上一经存在的文件，但是若尚未上传，则删除本地的文件，不进行备份。在下次下载时，将不会被加入到下载列表。另外要注意的时，如果仅仅是设定了废弃标志位，即便没有文件要上传，上传文件列表(UploadList.json)依然需要上传到服务器</td>
+</tr>
+</tbody>
+</table>
+<h4 id="21operation"><a name="user-content-21operation" href="#21operation" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.1.Operation</h4>
+<p>启动上传准用场景(SceneUpload)<br />
+如图：</p>
+<table>
+<thead>
+<tr>
+<th align="center">图：2-1-1 上传场景位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/SceneUpload_Position.png" /></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center">图：2-1-2 上传场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/SceneUpload.png" /></td>
+</tr>
+</tbody>
+</table>
+<p><code>目前打包好的资源（详情参看：1.1.4.1.导出目录），要上传到远程CDN服务器，可能需要开启VPN。详情咨询，相关负责人。</code></p>
+<p><code>点击场景中上传按钮，打包资源竟会被自动上传到CDN服务器上。右上角，将显示当前上传所花时间。上传完毕，已经打包的AssetBundle资源将会被备份到本地</code></p>
+<h4 id="22local-backup"><a name="user-content-22local-backup" href="#22local-backup" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.2.Local BackUp</h4>
+<p><code>备份目录在本地工程目录</code></p>
+<ul>
+<li>
+<p>备份目录</p>
+<p><code>&lt;工程目录&gt;/BackUp/Bundles/&lt;Platform（如： iOS/Android）&gt;/&lt;上传时间（格式：YYYYMMDDHHMM）&gt;/&lt;资源类型(Normal/Scenes)&gt;</code></p>
+</li>
+<li>
+<p>备注：</p>
+<p><code>1）上传时间：在点击上传按钮的同时，会自动记录上传时间。精确到分。</code></p>
+<p><code>2）在上传打包的AssetBundle文件的同时，还有两个文件也是必须上传的。</code></p>
+<p>a.上传列表文件（Uploadlist.json）</p>
+<p>-&gt; 文件将以Json文件的格式上传以及备份。该文件保存了至今为止所有的上传文件记录。包括历史记录。下载列表，将由该列表产生。<code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#3download">3.Download</a>。</p>
+<p>b.上传文件依赖列表文件（BundlesMap.json）</p>
+<p>-&gt; 。该文件也是以Json文件格式，上传以及备份。该文件包含了AssetBundle加载中所述，预先加载的所有依赖关系。<code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#4assetbundle-load">4.AssetBundle Load</a>。</p>
+</li>
+</ul>
+<p>如图：</p>
+<table>
+<thead>
+<tr>
+<th align="center">图：2-2-1 本地备份目录</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/Upload_LocalBackUpDir.png" /></td>
+</tr>
+</tbody>
+</table>
+<h4 id="23result"><a name="user-content-23result" href="#23result" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.3.Result</h4>
+<p>上传方式，将以不同的模式上传。针对开发，测试以及向AppStore提交之后，真机测试用。<br />
+<code>打包模式定义详情参看:</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#501build-mode-define">5.0.1.Build Mode Define</a></p>
+<table>
+<thead>
+<tr>
+<th align="center">图：2-3-1 上传结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/Upload_Result.png" /></td>
+</tr>
+</tbody>
+</table>
+<h3 id="3download"><a name="user-content-3download" href="#3download" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.Download</h3>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#contents">返回目录</a></p>
+<p><code>文件名：DownloadList.asset</code><br />
+<code>路径：Resources/Conf</code></p>
+<p>每次启动，会自动从当前下载目录下，导入最新的下载列表。<br />
+<code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#32download-dir-setting">3.2.Download Dir Setting</a></p>
+<hr />
+<h3 id="30download-list"><a name="user-content-30download-list" href="#30download-list" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.0.Download List</h3>
+<p>下载结构定义：</p>
+<table>
+<thead>
+<tr>
+<th align="center">图：3-1-1 下载场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/Download_Result.png" /></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>项目名</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No</td>
+<td>No</td>
+<td>同上传列表No。全局唯一，自动采番</td>
+</tr>
+<tr>
+<td>BundleId</td>
+<td>ID</td>
+<td>打包AssetBundle时自动产生的ID。与路径相关。</td>
+</tr>
+<tr>
+<td>BundleType</td>
+<td>AssetBundle类型</td>
+<td>分为：Normal，Scene。</td>
+</tr>
+<tr>
+<td>FileType</td>
+<td>文件类型</td>
+<td>分为：Main Manifest和Bundle。</td>
+</tr>
+<tr>
+<td>DataSize</td>
+<td>数据大小</td>
+<td>打包AssetBundle成功后，所生成的Bundle文件大小</td>
+</tr>
+<tr>
+<td>ManifestDataSize</td>
+<td>Manifest文件大小</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>Md5</td>
+<td>Md5码</td>
+<td>打包AssetBundle成功后,所生成Bundle文件的Md5码。在AssetBundle文件打包，校验文件与上次上传是否有所变更，文件下载，校验文件的完整性等时，将会用到此验证码</td>
+</tr>
+<tr>
+<td>ManifestMd5</td>
+<td>Manifest文件的Md5码</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>HashCode</td>
+<td>HashCode码</td>
+<td>Unity3d 打包AssetBundle后，自动生成校验用的Hash128验证码。目前尚未使用，保留用</td>
+</tr>
+<tr>
+<td>UploadDataTime</td>
+<td>上传时间</td>
+<td>在上传按钮按下同时，会预先，对所有上传对象进行，自动采番。无需手动设定</td>
+</tr>
+<tr>
+<td>LocalSave</td>
+<td>本地保存标志位</td>
+<td>True:在进入游戏前，必须下载保存到本地的。false：无需预先下载，在需要时下载。<code>目前，只适用true的场合</code></td>
+</tr>
+<tr>
+<td>Downloaded</td>
+<td>下载完成标志位</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Manifest Downloaded</td>
+<td>Manifest文件下载完成标志位。</td>
+<td>如果：在上传列表中，设置了无需上传Manifest文件标志位了，则这个永远为false。<code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#20upload-list">2.0.Upload List</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="31operation"><a name="user-content-31operation" href="#31operation" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.1.Operation</h3>
+<table>
+<thead>
+<tr>
+<th align="center">图：3-1-1 下载场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/SceneDownload_Position.png" /></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center">图：3-1-2 下载测试场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/SceneDownload.png" /></td>
+</tr>
+</tbody>
+</table>
+<p><code>点击下载按钮就可以测试相关，就可以开始下载。右上角显示当前下载所花时间。</code></p>
+<p><code>Download（Http）：Http方式下载。支持多线程</code></p>
+<p><code>Download（WWWW）：Unity3d远程WWW方式下载。协同进程下载。</code></p>
+<h3 id="32download-dir-setting"><a name="user-content-32download-dir-setting" href="#32download-dir-setting" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.2.Download Dir Setting</h3>
+<ul>
+<li>
+<p>下载根目录<br />
+<code>Application.temporaryCachePath</code></p>
+</li>
+<li>
+<p>下载目录</p>
+</li>
+</ul>
+<p>如图：</p>
+<table>
+<thead>
+<tr>
+<th align="center">图：3-2-1 下载场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/Download_Dir.png" /></td>
+</tr>
+</tbody>
+</table>
+<p>1) Bundles ： AssetBundle总目录</p>
+<p>1.1) Bundles/BundlesMap.json : 所有的打包AssetBundle的关系依赖文件。全局唯一。<code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#1142assetbundle-reference-map-file">1.1.4.2.AssetBundle Reference Map File</a>。</p>
+<p>1.2) Bundles/UploadList.json : 上传列表文件。全局唯一。<code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#20upload-list">2.0.Upload List</a></p>
+<p>1.3) Bundles/DownloadList.json : 下载列表文件。全局唯一。新用户首次启动，下载完成将自动生成该文件。<code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#30download-list">3.0.Download List</a></p>
+<p>1.4) Bundles/Normal/<UploadDateTime>/一般的打包AssetBundle文件目录</p>
+<p>1.5) Bundles/Scene/<UploadDateTime>/Scene的打包AssetBundle文件目录</p>
+<p>2) Compress ： 压缩/加压缩目录</p>
+<p>3) Downloads ：下载目录</p>
+<h3 id="33download-manager-script"><a name="user-content-33download-manager-script" href="#33download-manager-script" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.3.Download Manager Script</h3>
+<p>在需要加载的场景中或者对象上挂上脚本，就可以自动进行下载。</p>
+<p>如图：</p>
+<table>
+<thead>
+<tr>
+<th align="center">图：3-3-1 下载管理脚本挂接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/DownloadManagerScript.png" /></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>项目名</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AutoDownload</td>
+<td>自动下载标志位</td>
+<td>在没有手动下载按钮的场合，设定该标识为，脚本被加载的同时，将自动开始下载。</td>
+</tr>
+<tr>
+<td>DownloadBar</td>
+<td>下载进度条</td>
+<td>下载的进度信息，将在此时时更新。<code>详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#53progress-bar">5.3.Progress Bar</a></td>
+</tr>
+<tr>
+<td>DownloadEvents</td>
+<td>下载事件列表</td>
+<td>各个相关事件，在这里指定。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>下载事件说明</li>
+</ul>
+<p><code>下载前消息提示事件（OnPreConfirmNotification）</code>：在现在开始前，提示用户本次下载有多少文件，下载流量等信息，提示需不需要切换wifi环境等等。</p>
+<p><code>下载完成事件（OnCompletedNotification）：</code>：下载完成后，弹出小窗，提示下载完成等等。</p>
+<p><code>下载取消确认事件(OnCancelNotification)</code>：下载已经开始，但是中途取消时，提前弹出小窗，提示确认取消下载等等。</p>
+<p><code>下载错误事件（OnErrorsNotification）</code>：下载中发生的网络状况，文件损坏等等错误时，返回用户界面提示错误信息等等。</p>
+<hr />
+<h3 id="4assetbundle-load"><a name="user-content-4assetbundle-load" href="#4assetbundle-load" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>4.AssetBundle Load</h3>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#contents">返回目录</a></p>
+<h4 id="41synchronous-load-interface"><a name="user-content-41synchronous-load-interface" href="#41synchronous-load-interface" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>4.1.Synchronous Load Interface</h4>
+<p>详情如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">接口名</th>
+<th align="left">说明</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">LoadScene</td>
+<td align="left">同步加载场景</td>
+<td align="left"><code>场景加载只有同步接口</code></td>
+</tr>
+<tr>
+<td align="left">LoadPrefab</td>
+<td align="left">预制体加载</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadAudio</td>
+<td align="left">音效加载</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadMaterial</td>
+<td align="left">材质加载</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadTexture</td>
+<td align="left">纹理加载</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadAssetFile</td>
+<td align="left">（.asset）文件加载</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadTextFile</td>
+<td align="left">（.text）文件加载</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadJsonFile</td>
+<td align="left">（.json）文件加载</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<h4 id="42asynchronous-load-interface"><a name="user-content-42asynchronous-load-interface" href="#42asynchronous-load-interface" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>4.2.Asynchronous Load Interface</h4>
+<p>详情如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">接口名</th>
+<th align="left">说明</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">LoadPrefabAsync</td>
+<td align="left">预制体加载(单个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadPrefabsAsync</td>
+<td align="left">预制体加载(多个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadAudioAsync</td>
+<td align="left">音效加载(单个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadAudiosAsync</td>
+<td align="left">音效加载(多个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadMatAsync</td>
+<td align="left">材质加载(单个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadMatsAsync</td>
+<td align="left">材质加载(多个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadTextureAsync</td>
+<td align="left">纹理加载(单个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadTexturesAsync</td>
+<td align="left">纹理加载(多个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadAssetFileAsync</td>
+<td align="left">（.asset）文件加载(单个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadAssetFilesAsync</td>
+<td align="left">（.asset）文件加载(多个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadTextFileAsync</td>
+<td align="left">（.text）文件加载(单个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadTextFilesAsync</td>
+<td align="left">（.text）文件加载(多个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadJsonFileAsync</td>
+<td align="left">（.json）文件加载(单个)</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">LoadJsonFilesAsync</td>
+<td align="left">（.json）文件加载(多个)</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<h4 id="422asynchronous-callback-define"><a name="user-content-422asynchronous-callback-define" href="#422asynchronous-callback-define" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>4.2.2.Asynchronous CallBack Define</h4>
+<ul>
+<li>定义<br />
+<code>Action&lt;string, TAssetBundleType, UnityEngine.Object&gt; LoadSuccess</code></li>
+</ul>
+<p>-&gt; 参数定义说明</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">第一位参数:Key</td>
+<td align="left">根据<a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#42asynchronous-load-interface">4.2.Asynchronous Load Interface</a>中各个借口的定义，该参数的实际意义，可能是路径，对象名，文件名等等</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">第二位参数:加载对象类型</td>
+<td align="left">根据<a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#42asynchronous-load-interface">4.2.Asynchronous Load Interface</a>中所调用接口不同，类型也不同</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">第三位参数:加载成功后的对象</td>
+<td align="left">加载出来后，均为UnityEngine.Object.<code>若有需要，需根据场合自己转换</code></td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4221load-target-type-define"><a name="user-content-4221load-target-type-define" href="#4221load-target-type-define" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>4.2.2.1.Load Target Type Define</h4>
+<p>定义如下：<br />
+<pre><code><br />
+    // Asset bundle 类型.<br />
+    public enum TAssetBundleType<br />
+    {<br />
+        // 无.<br />
+        None,<br />
+        // 场景.<br />
+        Scene,<br />
+        // 预制体.<br />
+        Prefab,<br />
+        // 音效.<br />
+        Audio,<br />
+        // 材质.<br />
+        Mat,<br />
+        // 纹理.<br />
+        Texture,<br />
+        // (.asset)文件.<br />
+        Asset,<br />
+        // (.text)文件.<br />
+        Text,<br />
+        // (.json)文件.<br />
+        Json<br />
+    }<br />
+</code></pre></p>
+<hr />
+<h3 id="5others-setting"><a name="user-content-5others-setting" href="#5others-setting" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>5.Others Setting</h3>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#contents">返回目录</a></p>
+<h4 id="50correlation-type-define"><a name="user-content-50correlation-type-define" href="#50correlation-type-define" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>5.0.Correlation Type Define</h4>
+<h5 id="501build-mode-define"><a name="user-content-501build-mode-define" href="#501build-mode-define" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>5.0.1.Build Mode Define</h5>
+<ul>
+<li>打包模式定义<br />
+<pre><code><br />
+    // BuildMode.  <br />
+    public enum TBuildMode {<br />
+        // Debug模式.<br />
+        Debug,<br />
+        // Release模式.<br />
+        Release,<br />
+        // Store模式.<br />
+        Store,<br />
+        Max<br />
+}<br />
+</code></pre></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">项目</th>
+<th align="left">说明</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Debug</td>
+<td align="left">Debug模式</td>
+<td align="left">面向开发人员，在开发阶段使用模式。</td>
+</tr>
+<tr>
+<td align="left">Release</td>
+<td align="left">Release模式</td>
+<td align="left">面向测试人员或者线上版本技能确认用等</td>
+</tr>
+<tr>
+<td align="left">Store</td>
+<td align="left">Store模式</td>
+<td align="left">面向用户，原则上一经上传，禁止删除，以及对以后文件进行修改，修复只能上传新的文件到服务器来替换</td>
+</tr>
+</tbody>
+</table>
+<h4 id="51build-info-setting"><a name="user-content-51build-info-setting" href="#51build-info-setting" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>5.1.Build Info Setting</h4>
+<p>文件设定如下：</p>
+<p><code>文件名：BuildInfo.asset</code><br />
+<code>路径：Resources/Conf</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">图：5-1-1 下载管理脚本挂接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/BuildInfo.png" /></td>
+</tr>
+</tbody>
+</table>
+<p><code>此文件设定了各个打包成ipa/apk文件时所需要的信息。打包之前，会自动往各个设置文件中进行相关设定。如Android的场合的花，会自动的设定Manifest的XML文件，iOS的场合的话，会设置导出的XCode工程中得相关信息后，在打包成ipa文件</code></p>
+<h4 id="52server-config"><a name="user-content-52server-config" href="#52server-config" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>5.2.Server Config</h4>
+<p>文件设定如下：</p>
+<p><code>文件名：ServerConf.asset</code><br />
+<code>路径：Resources/Conf</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">图：5-2-1 服务器相关设定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/ServerConf.png" /></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="left">项目</th>
+<th align="left">说明</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">ThreadMaxCount</td>
+<td align="left">线程最大数</td>
+<td align="left">上传和下载中，若采用线程方式，则此为同时最大允许启动的线程数上限。</td>
+</tr>
+<tr>
+<td align="left">NetRetries</td>
+<td align="left">网络重试数</td>
+<td align="left">当网路通信不通，错误以及其他原因产生的故障是，不管是上传还是下载，都会重试重发请求。这是重发请求数上限。</td>
+</tr>
+<tr>
+<td align="left">NetTimeOut</td>
+<td align="left">网络超时</td>
+<td align="left">单位：秒</td>
+</tr>
+<tr>
+<td align="left">DownloadWay</td>
+<td align="left">下载方式</td>
+<td align="left">方式有：http，wwww（Unity3d原生）</td>
+</tr>
+<tr>
+<td align="left">UploadSever</td>
+<td align="left">上传服务器信息</td>
+<td align="left">包括账号，密码，地址，端口号等等</td>
+</tr>
+<tr>
+<td align="left">DownloadSever</td>
+<td align="left">下载服务器信息</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<h4 id="521progress-tips"><a name="user-content-521progress-tips" href="#521progress-tips" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>5.2.1.Progress Tips</h4>
+<p><code>进度条上方，随着下载或者上传进度不通，周期性的变化提示信息。（如魔兽世界的加载中，会有些游戏趣味小提示。）</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">项目</th>
+<th align="left">说明</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Language Pakage</td>
+<td align="left">语言包标志位</td>
+<td align="left"><code>保留项目：</code>将来考虑到语言包扩充问题，暂时预留该标志位</td>
+</tr>
+<tr>
+<td align="left">Inerval</td>
+<td align="left">Tips更新时间间隔</td>
+<td align="left">单位：秒</td>
+</tr>
+<tr>
+<td align="left">Tips</td>
+<td align="left">趣味小提示列表</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<h4 id="53progress-bar"><a name="user-content-53progress-bar" href="#53progress-bar" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>5.3.Progress Bar</h4>
+<h4 id="531create-ui"><a name="user-content-531create-ui" href="#531create-ui" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>5.3.1.Create UI</h4>
+<p>选中要挂接的对象，在Hierarchy窗口，右键创建如下图操作，进图条就会自动创建。</p>
+<table>
+<thead>
+<tr>
+<th align="center">图：5-3-1 创建进度条</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/ReadMe/ProgressBar_Create.png" /></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6build"><a name="user-content-6build" href="#6build" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>6.Build</h2>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#contents">返回目录</a></p>
+<p><code>Build详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/Build.md#contents">Android Build</a></p>
+<hr />
+<h3 id="61android-build"><a name="user-content-61android-build" href="#61android-build" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>6.1.Android Build</h3>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#contents">返回目录</a></p>
+<p><code>Android Build详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/Build.md#2android-build">Android Build</a></p>
+<hr />
+<h3 id="62ios-build"><a name="user-content-62ios-build" href="#62ios-build" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>6.2.iOS Build</h3>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#contents">返回目录</a></p>
+<p><code>iOS Build详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/Build.md#3ios-build">iOS Build</a></p>
+<hr />
+<h3 id="8iap"><a name="user-content-8iap" href="#8iap" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>8.IAP</h3>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#contents">返回目录</a></p>
+<p><code>IAP详情参看：</code><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/IAP.md#contents">IAP</a></p>
+<hr />
+<h3 id="9faq"><a name="user-content-9faq" href="#9faq" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>9.FAQ</h3>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#contents">返回目录</a></p>
+<hr />
+<h3 id="10remaining-problems"><a name="user-content-10remaining-problems" href="#10remaining-problems" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>10.Remaining Problems</h3>
+<p><a href="/Users/helpking/Desktop/01.WorkDir/99.Tools/BundlesBuild/README.md#contents">返回目录</a></p>
+<ul>
+<li>
+<p>1) 上传文件（UploadList.json）文件大小问题</p>
+<p>按目前统计：平均每条更新记录占504 byte。如果按最大5000条记录来计算，这个文件大小有可能超过2520740 byte。也就是2.4MB这个貌似还是略大。</p>
+</li>
+<li>
+<p>2）进度条更新有锁死现象（偶尔）</p>
+</li>
+</ul>
+<p>-&gt; 原因：</p>
+<pre><code>可能是协同进程配合lock有锁住主进程的可能
+</code></pre>
+<p>-&gt; 对策：</p>
+<pre><code>进度条更新，另起一个线程，让这个线程自己带更新锁，来防止多线程同时更新
+</code></pre></article></body></html>

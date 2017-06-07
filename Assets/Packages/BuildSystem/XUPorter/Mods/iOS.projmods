@@ -1,0 +1,11 @@
+{
+    "group": "iOS",
+    "libs": [],
+    "frameworks": ["CoreTelephony.framework","AdSupport.framework","WebKit.framework", "StoreKit.framework", "Security.framework"],
+    "headerpaths": [],
+    "files":   [],
+    "folders": ["../../IAP/iOS/"],    
+    "excludes": ["^.*.meta$"],
+    "compiler_flags": [],
+    "linker_flags": ["-ObjC","-lz"]
+}

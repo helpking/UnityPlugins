@@ -1,0 +1,21 @@
+
+# デフォルト設定
+*.DS_Store
+
+*.unitypackage
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp.csproj
+Library/*
+*.userprefs
+*.csproj
+obj/*
+Temp/*
+*.ipa
+*.ipa.meta
+Logs/
+Logs.meta
+Output/
+Shell/BuildInfo
+Assets/StreamingAssets.meta
+Assets/StreamingAssets/*
+BackUp/*

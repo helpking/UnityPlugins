@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.helpking.exporttounity">
+
+    <!-- SDK版本指定 -->
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="22"/>
+
+    <!-- 配置权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+
+    <!-- 屏幕设定 -->
+    <supports-screens
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:anyDensity="true"/>
+
+    <application
+        android:allowBackup="true"
+        android:name="com.snowfish.cn.ganga.helper.SFOnlineApplication"
+        android:label="@string/GameName"
+        android:supportsRtl="true">
+
+        <!-- 易接设定：启动Activity -->
+        <activity
+            android:name="com.machong.UToASDK.OneSDK.OneSDKSplashActivity"
+            android:label="@string/GameName">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- 易接设定：游戏主Activity -->
+        <activity android:name="com.machong.UToASDK.OneSDK.GameMainActivity"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:label="@string/GameName">
+            <!--  Unity3d相关  -->
+            <meta-data android:name="unityplayer.UnityActivity" android:value="true"/>
+            <meta-data android:name="android.app.lib_name" android:value="unity"/>
+            <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true"/>
+        </activity>
+        <service android:name="com.snowfish.a.a.s.ABGSvc"
+            android:enabled="true"
+            android:process="com.snowfish.a.a.bg">
+            <intent-filter>
+                <action android:name="com.snowfish.a.a.s.ABGSvc"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
+        <!-- 易接SDK参数选项设定 -->
+        <!-- <meta-data android:name="com.snowfish.customer" android:value="SNOWFISH"></meta-data>
+        <meta-data android:name="com.snowfish.channel" android:value="SNOWFISH"></meta-data>
+        <meta-data android:name="com.snowfish.sdk.version" android:value="2"></meta-data>
+        <meta-data android:name="com.snowfish.appid" android:value="@string/OneSDK_Key"></meta-data> -->
+        <meta-data
+            android:name="com.snowfish.channelid"
+            android:value="{4ff036a1-3254eafe}"> <!-- 此参数不做修改，保持默认就行，打包会自动替换 -->
+        </meta-data>
+    </application>
+
+</manifest>

@@ -1,198 +1,343 @@
-using UnityEngine;
-using System.IO;
-using System.Linq;
-using System.Diagnostics;
+using System;
 using System.Collections.Generic;
-using Common;
-#if UNITY_EDITOR
+using System.IO;
 using UnityEditor;
-using UnityEditor.iOS;
-using UnityEditor.iOS.Xcode;
 using UnityEditor.Callbacks;
-#endif
+using UnityEditor.iOS.Xcode;
+using UnityEngine;
+using Packages.BuildSystem.iOS;
+using Packages.BuildSystem.Settings;
+using Packages.Common.Base;
+using Packages.Logs;
 
-namespace BuildSystem
+namespace Packages.BuildSystem.Editor
 {
-	public class PostProcessor
+	public class PostProcessor : ClassExtension
 	{
-		static string specialAttentionFolder = "Assets/Packages";
-		static string specialFolder = "_PROJECT_ROOT_";
-		static bool DebugOutput = true;
-		static bool ExcessDebugOutput = false;
+//		private static string _specialAttentionFolder = "Assets/Packages";
+//		private static string _specialFolder = "_PROJECT_ROOT_";
+//		private static bool _debugOutput = true;
+//		private static bool _excessDebugOutput = false;
+//
+//		private static string _packagesFolder = "Assets/Packages";
 
-		static string packagesFolder = "Assets/Packages";
-
-        [PostProcessBuildAttribute(999)]
-		public static void OnPostprocessBuild(BuildTarget target, string iBuiltProjectPath)
+        [PostProcessBuild(999)]
+		public static void OnPostprocessiOSBuild(BuildTarget iTarget, string iBuiltProjectPath)
 		{
-#if UNITY_EDITOR
+			Loger.BuildStart("PostProcessor::OnPostprocessiOSBuild()");
+			Loger.Info ($"Target:{iTarget} ProPath:{iBuiltProjectPath}");
 
-			if (target != BuildTarget.iOS) {
+			// iOS
+			if (iTarget != BuildTarget.iOS) {
+				Loger.BuildEnd();
 				return;
 			}
 
-			const string funcBlock = "PostProcessor.OnPostprocessBuild()";
-			BuildLogger.OpenBlock(funcBlock);
-
-			const string TargetProjectName = "Unity-iPhone";
+			const string targetProjectName = "Unity-iPhone";
+			var buildSetting = BuildSettings.GetInstance(BuildSettings.AssetFileDir);
+			if(null == buildSetting) {
+				return;
+			}
 			// 取得设定情报列表
-			XCSettingItem[] settings = BuildSettings.GetInstance().GetXCSettingInfo(TargetProjectName);
-			if ((settings == null) || (settings.Length <= 0)) {
-				BuildLogger.CloseBlock(funcBlock);
+			var settings = buildSetting.GetXcSettingInfo(targetProjectName);
+			if (settings == null || settings.Length <= 0) {
+				Loger.BuildEnd();
 				return;
 			}
 
-			string pbxprojPath = PBXProject.GetPBXProjectPath(iBuiltProjectPath);
-			PBXProject project = new PBXProject();
+			var pbxprojPath = PBXProject.GetPBXProjectPath(iBuiltProjectPath);
+			var project = new PBXProject();
 			project.ReadFromString(File.ReadAllText(pbxprojPath));
-			string targetGUID = project.TargetGuidByName(TargetProjectName);
+			var targetGuid = project.TargetGuidByName(targetProjectName);
 
 			// BuildMode(debug/release/store)
-			string debugConfigGUID = project.BuildConfigByName (targetGUID, "Debug");
-			string releaseConfigGUID = project.BuildConfigByName (targetGUID, "Release");
+			var debugGuid = project.BuildConfigByName (targetGuid, "Debug");
+			var releaseGuid = project.BuildConfigByName (targetGuid, "Release");
+			var releaseForProfilingGuid = project.BuildConfigByName (targetGuid, "ReleaseForProfiling");
+			var releaseForRunningGuid = project.BuildConfigByName (targetGuid, "ReleaseForRunning");
 
-			foreach(XCSettingItem item in settings) {
+			foreach(var item in settings) {
 
-				switch(item.Type) {
-				case TXCSettingInfoType.ReplaceSource:
-					{
-						foreach (string value in item.Value.LValue) {
-							ReplaceSource(iBuiltProjectPath, value);
-							BuildLogger.LogMessage("[Replace Source:] -> {0}", iBuiltProjectPath);
+				switch(item.type) {
+				case TxcSettingInfoType.ReplaceSource:
+				{
+					var list = item.Value.Values;
+					if (list != null) {
+						foreach (var value in list)
+						{
+							ReplaceSource(iBuiltProjectPath, Convert.ToString(value));
+							Loger.BuildLog($"Replace Source {value} -> {iBuiltProjectPath}");
 						}
 					}
+				}
 					break;
-				case TXCSettingInfoType.FrameWorks:
-					{
-						foreach(string frameWork in item.Value.LValue) {
-							if (project.HasFramework (frameWork) == false) {
-								project.AddFrameworkToProject (targetGUID, frameWork, false);
-								BuildLogger.LogMessage("[Add FrameWork:] -> {0}", frameWork);
+				case TxcSettingInfoType.FrameWorks:
+				{
+					var list = item.Value.Values;
+					if (list != null) { 
+						foreach (var frameWork in list)
+						{
+							var strTmp = Convert.ToString(frameWork);
+#if UNITY_2017_1_OR_NEWER
+							if (project.ContainsFramework(targetGuid, strTmp) == false)
+							{
+#else
+							if (project.HasFramework (strTmp) == false) {
+#endif
+								project.AddFrameworkToProject(targetGuid, strTmp, false);
+								Loger.BuildLog($"Add FrameWork -> {strTmp}");
 							}
 						}
 					}
+				}
 					break;
-				case TXCSettingInfoType.Libraries:
+				case TxcSettingInfoType.Libraries:
+				{
+					var list = item.Value.Values;
+					if (list != null)
 					{
-						foreach(string library in item.Value.LValue) {
-							string fileGuid = project.AddFile("usr/lib/" + library, "Frameworks/" + library, PBXSourceTree.Sdk);
-							project.AddFileToBuild(targetGUID, fileGuid);
-							BuildLogger.LogMessage("[Add Library:] -> {0}", library);
+						foreach (var library in list)
+						{
+							var strTmp = Convert.ToString(library);
+							var fileGuid = project.AddFile("usr/lib/" + strTmp, "Frameworks/" + strTmp,
+								PBXSourceTree.Sdk);
+							project.AddFileToBuild(targetGuid, fileGuid);
+							Loger.BuildLog($"Add Library -> {strTmp}");
 						}
 					}
+				}
 					break;
-				case TXCSettingInfoType.IncludeFiles:
+				case TxcSettingInfoType.IncludeFiles:
+				{
+					var list = item.Value.Values;
+					if (list != null)
 					{
-						foreach(string file in item.Value.LValue) {
+						foreach (var file in list)
+						{
+							var strTmp = Convert.ToString(file);
 							string addFilePath = null;
-							PreSetFileToProject (iBuiltProjectPath, file, ref addFilePath);
+							PreSetFileToProject(iBuiltProjectPath, strTmp, ref addFilePath);
 
-							if(string.IsNullOrEmpty(addFilePath) == false) {
-								string fileGUID = project.AddFile (addFilePath, addFilePath, PBXSourceTree.Source);
-								project.AddFileToBuild (targetGUID, fileGUID);
+							if (string.IsNullOrEmpty(addFilePath)) continue;
+							var fileGuid = project.AddFile(addFilePath, addFilePath);
+							project.AddFileToBuild(targetGuid, fileGuid);
 
-								BuildLogger.LogMessage("[Add File:] -> {0}", file);
-							}
+							Loger.BuildLog($"Add File -> {strTmp}");
 						}
 					}
+				}
 					break;
-				case TXCSettingInfoType.IncludeFolders:
+				case TxcSettingInfoType.IncludeFolders:
+				{
+					var list = item.Value.Values;
+					if (list != null)
 					{
-						foreach(string folder in item.Value.LValue) {
-
+						foreach (var folder in list)
+						{
+							var strTmp = Convert.ToString(folder);
 							string copyTo = null;
 							string addDirReference = null;
 
-							PreSetFolderToProject (iBuiltProjectPath, folder, ref copyTo, ref addDirReference);
-							if((string.IsNullOrEmpty(copyTo) == false) &&
-								(string.IsNullOrEmpty(addDirReference) == false)) {
-								project.AddFolderReference (copyTo, addDirReference, PBXSourceTree.Source);
-								BuildLogger.LogMessage("[Add Folder:] -> {0}", folder);
+							PreSetFolderToProject(iBuiltProjectPath, strTmp, ref copyTo, ref addDirReference);
+							if (string.IsNullOrEmpty(copyTo) || string.IsNullOrEmpty(addDirReference))
+								continue;
+							project.AddFolderReference(copyTo, addDirReference);
+							Loger.BuildLog($"Add Folder -> {strTmp}");
+						}
+					}
+				}
+					break;
+				case TxcSettingInfoType.Bool:
+				{
+					var debugValue = (TxcBool)item.Debug.Value;
+					// Debug
+					project.SetBuildPropertyForConfig(debugGuid, item.key,
+						TxcBool.Yes == debugValue ? "YES" : "NO");
+
+					Loger.BuildLog($"Add Bool(Debug) -> Key:{item.key} Value:{(TxcBool.Yes == debugValue ? "YES" : "NO")}");
+
+					// Release
+					var releaseValue = (TxcBool)item.Release.Value;
+					project.SetBuildPropertyForConfig(releaseGuid, item.key,
+						TxcBool.Yes == releaseValue ? "YES" : "NO");
+
+					Loger.BuildLog($"Add Bool(Release) -> Key:{item.key} Value:{(TxcBool.Yes == releaseValue ? "YES" : "NO")}");
+
+					// ReleaseForProfiling
+					var releaseForProfilingValue = (TxcBool)item.ReleaseForProfiling.Value;
+					project.SetBuildPropertyForConfig(releaseForProfilingGuid, item.key,
+						TxcBool.Yes == releaseForProfilingValue ? "YES" : "NO");
+
+					Loger.BuildLog($"Add Bool(ReleaseForProfiling) -> Key:{item.key} Value:{(TxcBool.Yes == releaseValue ? "YES" : "NO")}");
+
+					// ReleaseForRunning
+					var releaseForRunningValue = (TxcBool)item.ReleaseForRunning.Value;
+					project.SetBuildPropertyForConfig(releaseForRunningGuid, item.key,
+						TxcBool.Yes == releaseForRunningValue ? "YES" : "NO");
+
+					Loger.BuildLog($"Add Bool(ReleaseForRunning) -> Key:{item.key} Value:{(TxcBool.Yes == releaseValue ? "YES" : "NO")}");
+				}
+					break;
+				case TxcSettingInfoType.Enum:
+				{
+					// Debug
+					var debugValue = $"{item.Debug.Value}";
+					if (false == string.IsNullOrEmpty(debugValue))
+					{
+						project.SetBuildPropertyForConfig(debugGuid, item.key, debugValue);
+
+						Loger.BuildLog($"Add String(Debug) -> Key:{item.key} Value:{debugValue}");
+
+					}
+					
+					// Release
+					var releaseValue = $"{item.Release.Value}";
+					if (false == string.IsNullOrEmpty(releaseValue))
+					{
+						project.SetBuildPropertyForConfig (releaseGuid, item.key, releaseValue);
+
+						Loger.BuildLog($"Add String(Release) -> Key:{item.key} Value:{releaseValue}");
+					}
+					
+					// ReleaseForProfiling
+					var releaseForProfilingValue = $"{item.ReleaseForProfiling.Value}";
+					if (false == string.IsNullOrEmpty(releaseForProfilingValue))
+					{
+						project.SetBuildPropertyForConfig (releaseForProfilingGuid, item.key, releaseForProfilingValue);
+
+						Loger.BuildLog($"Add String(ReleaseForProfiling) -> Key:{item.key} Value:{releaseForProfilingValue}");
+					}
+					
+					// ReleaseForRunning
+					var releaseForRunningValue = $"{item.ReleaseForRunning.Value}";
+					if (false == string.IsNullOrEmpty(releaseForRunningValue))
+					{
+						project.SetBuildPropertyForConfig (releaseForRunningGuid, item.key, releaseForRunningValue);
+
+						Loger.BuildLog($"Add String(ReleaseForRunning) -> Key:{item.key} Value:{releaseForRunningValue}");
+					}
+				}
+					break;
+
+				case TxcSettingInfoType.String:
+				{
+					// Debug
+					var debugValue = item.Debug.Value as string;
+					if (false == string.IsNullOrEmpty(debugValue))
+					{
+						project.SetBuildPropertyForConfig(debugGuid, item.key, debugValue);
+
+						Loger.BuildLog($"Add String(Debug) -> Key:{item.key} Value:{debugValue}");
+
+					}
+					
+					// Release
+					var releaseValue = item.Release.Value as string;
+					if (false == string.IsNullOrEmpty(releaseValue))
+					{
+						project.SetBuildPropertyForConfig (releaseGuid, item.key, releaseValue);
+
+						Loger.BuildLog($"Add String(Release) -> Key:{item.key} Value:{releaseValue}");
+					}
+					
+					// ReleaseForProfiling
+					var releaseForProfilingValue = item.ReleaseForProfiling.Value as string;
+					if (false == string.IsNullOrEmpty(releaseForProfilingValue))
+					{
+						project.SetBuildPropertyForConfig (releaseForProfilingGuid, item.key, releaseForProfilingValue);
+
+						Loger.BuildLog($"Add String(ReleaseForProfiling) -> Key:{item.key} Value:{releaseForProfilingValue}");
+					}
+					
+					// ReleaseForRunning
+					var releaseForRunningValue = item.ReleaseForRunning.Value as string;
+					if (false == string.IsNullOrEmpty(releaseForRunningValue))
+					{
+						project.SetBuildPropertyForConfig (releaseForRunningGuid, item.key, releaseForRunningValue);
+
+						Loger.BuildLog($"Add String(ReleaseForProfiling) -> Key:{item.key} Value:{releaseForRunningValue}");
+					}
+				}
+					break;
+				case TxcSettingInfoType.List:
+					{
+						// Debug
+						var debugValue = item.Debug.Value as List<string>;
+						if (null != debugValue)
+						{
+							foreach (var value in debugValue) {
+								project.AddBuildPropertyForConfig (debugGuid, item.key, value);
+
+								Loger.BuildLog($"Add List(Debug) -> Key:{item.key} Item:{value}");
+							}
+						}
+						
+						// Release
+						var releaseValue = item.Release.Value as List<string>;
+						if (null != releaseValue)
+						{
+							foreach (var value in releaseValue) {
+								project.AddBuildPropertyForConfig (releaseGuid, item.key, value);
+
+								Loger.BuildLog($"Add List(Release) -> Key:{item.key} Item:{value}");
+							}
+						}
+						
+						// ReleaseForProfiling
+						var releaseForProfilingValue = item.ReleaseForProfiling.Value as List<string>;
+						if (null != releaseForProfilingValue)
+						{
+							foreach (var value in releaseForProfilingValue) {
+								project.AddBuildPropertyForConfig (releaseForProfilingGuid, item.key, value);
+
+								Loger.BuildLog($"Add List(ReleaseForProfiling) -> Key:{item.key} Item:{value}");
+							}
+						}
+						
+						// ReleaseForRunning
+						var releaseForRunningValue = item.ReleaseForRunning.Value as List<string>;
+						if (null != releaseForRunningValue)
+						{
+							foreach (var value in releaseForRunningValue) {
+								project.AddBuildPropertyForConfig (releaseForRunningGuid, item.key, value);
+
+								Loger.BuildLog($"Add List(ReleaseForRunning) -> Key:{item.key} Item:{value}");
 							}
 						}
 					}
 					break;
-				case TXCSettingInfoType.Bool:
-					{
-						// Debug
-						if(TXCBool.Yes == item.Debug.BValue) {
-							project.SetBuildPropertyForConfig (debugConfigGUID, item.Key, "YES");
-						} else {
-							project.SetBuildPropertyForConfig (debugConfigGUID, item.Key, "NO");
-						}
-
-						BuildLogger.LogMessage("[Add Bool(Debug):] -> Key:{0} Value:{1}", item.Key, item.Debug.BValue.ToString());
-
-						// Release
-						if(TXCBool.Yes == item.Release.BValue) {
-							project.SetBuildPropertyForConfig (releaseConfigGUID, item.Key, "YES");
-						} else {
-							project.SetBuildPropertyForConfig (releaseConfigGUID, item.Key, "NO");
-						}
-
-						BuildLogger.LogMessage("[Add Bool(Release):] -> Key:{0} Value:{1}", item.Key, item.Release.BValue.ToString());
-					}
-					break;
-
-				case TXCSettingInfoType.String:
-					{
-						// Debug
-						project.SetBuildPropertyForConfig (debugConfigGUID, item.Key, item.Debug.SValue);
-
-						BuildLogger.LogMessage("[Add String(Debug):] -> Key:{0} Value:{1}", item.Key, item.Debug.SValue);
-
-						// Release
-						project.SetBuildPropertyForConfig (releaseConfigGUID, item.Key, item.Release.SValue);
-
-						BuildLogger.LogMessage("[Add String(Release):] -> Key:{0} Value:{1}", item.Key, item.Release.SValue);
-					}
-					break;
-				case TXCSettingInfoType.List:
-					{
-						// Debug
-						foreach (string value in item.Debug.LValue) {
-							project.AddBuildPropertyForConfig (debugConfigGUID, item.Key, value);
-
-							BuildLogger.LogMessage("[Add List(Debug):] -> Key:{0} Item:{1}", item.Key, value);
-						}
-						// Release
-						foreach (string value in item.Release.LValue) {
-							project.AddBuildPropertyForConfig (releaseConfigGUID, item.Key, value);
-
-							BuildLogger.LogMessage("[Add List(Release):] -> Key:{0} Item:{1}", item.Key, value);
-						}
-					}
+				case TxcSettingInfoType.None:
 					break;
 				default:
-					break;
+					Loger.BuildEnd();
+					throw new ArgumentOutOfRangeException();
 				}
 
 			}
 			
 			File.WriteAllText(pbxprojPath, project.WriteToString());
-			BuildLogger.CloseBlock(funcBlock);
-#endif
+			Loger.BuildEnd();
 		}
 
-		static void ReplaceSource(string iProjectDir, string iFromFilePath) {
+		private static void ReplaceSource(string iProjectDir, string iFromFilePath) {
 
-			string fromFilePath = string.Format ("{0}/{1}", Application.dataPath, iFromFilePath);
+			var fromFilePath = $"{Application.dataPath}/{iFromFilePath}";
 			if (File.Exists (fromFilePath) == false) {
 				return;
 			}
-			int lastIndex = iFromFilePath.LastIndexOf ("/");
-			string fromFileName = iFromFilePath.Substring (lastIndex + 1);
-			if (string.IsNullOrEmpty (fromFileName) == true) {
+			var lastIndex = iFromFilePath.LastIndexOf ("/", StringComparison.Ordinal);
+			var fromFileName = iFromFilePath.Substring (lastIndex + 1);
+			if (string.IsNullOrEmpty (fromFileName)) {
 				return;
 			}
-			List<string> fileList = GetAllFiles (iProjectDir, fromFileName);
+			var fileList = GetAllFiles (iProjectDir, fromFileName);
 
-			bool isSuccessed = false;
-			foreach (string toFilePath in fileList) {
+			var isSucceeded = false;
+			foreach (var toFilePath in fileList) {
 
-				lastIndex = toFilePath.LastIndexOf ("/");
-				string toFileName = toFilePath.Substring (lastIndex + 1);
-				if (string.IsNullOrEmpty (toFileName) == true) {
+				lastIndex = toFilePath.LastIndexOf ("/", StringComparison.Ordinal);
+				var toFileName = toFilePath.Substring (lastIndex + 1);
+				if (string.IsNullOrEmpty (toFileName)) {
 					continue;
 				}
 
@@ -200,87 +345,86 @@ namespace BuildSystem
 					continue;
 				}
 
-				if (File.Exists (toFilePath) == true) {
+				if (File.Exists (toFilePath)) {
 					File.Delete (toFilePath);
 				}
 				File.Copy (fromFilePath, toFilePath);
 
-				isSuccessed = true;
+				isSucceeded = true;
 				break;
 			}
 
-			if (isSuccessed == false) {
-				BuildLogger.LogError ("[ReplaceSource Failed] File:{0}", iFromFilePath);
+			if (isSucceeded == false) {
+				Loger.BuildErrorLog($"[ReplaceSource Failed] File:{iFromFilePath}");
 			}
 		}
-			
-		static void PreSetFileToProject(string iProjectDir, string iFile, ref string iAddFilePath) {
-			string addDirReference = "Classes/Plugins";
-			string CopyTo = string.Format ("{0}/{1}", iProjectDir, addDirReference);
-			if (Directory.Exists (CopyTo) == false) {
-				Directory.CreateDirectory (CopyTo);
-			}
-			int lastIndex = iFile.LastIndexOf ("/");
-			string strTmp = null;
-			string fileName = iFile.Substring (lastIndex + 1);
-			if (-1 != lastIndex) {
-				strTmp = iFile.Substring (0, lastIndex);
-				string ignorePath = "Assets/Packages/";
-				int Index = iFile.LastIndexOf (ignorePath);
-				if (-1 == Index) {
-					ignorePath = "Assets/";
-					Index = iFile.LastIndexOf (ignorePath);
-				}
-				Index += ignorePath.Length;
-				strTmp = strTmp.Substring (Index);
 
-				string[] dirs = strTmp.Split ('/');
-				for (int i = 0; i < dirs.Length; ++i) {
-					CopyTo = string.Format ("{0}/{1}", CopyTo, dirs[i]);
-					addDirReference = string.Format ("{0}/{1}", addDirReference, dirs[i]);
-					if (Directory.Exists (CopyTo) == false) {
-						Directory.CreateDirectory (CopyTo);
+		private static void PreSetFileToProject(string iProjectDir, string iFile, ref string iAddFilePath) {
+			var addDirReference = "Classes/Plugins";
+			var copyTo = $"{iProjectDir}/{addDirReference}";
+			if (Directory.Exists (copyTo) == false) {
+				Directory.CreateDirectory (copyTo);
+			}
+			var lastIndex = iFile.LastIndexOf ("/", StringComparison.Ordinal);
+			var fileName = iFile.Substring (lastIndex + 1);
+			if (-1 != lastIndex) {
+				var strTmp = iFile.Substring (0, lastIndex);
+				var ignorePath = "Assets/Packages/";
+				var index = iFile.LastIndexOf (ignorePath, StringComparison.Ordinal);
+				if (-1 == index) {
+					ignorePath = "Assets/";
+					index = iFile.LastIndexOf (ignorePath, StringComparison.Ordinal);
+				}
+				index += ignorePath.Length;
+				strTmp = strTmp.Substring (index);
+
+				var dirs = strTmp.Split ('/');
+				for (var _ = 0; _ < dirs.Length; ++_) {
+					copyTo = $"{copyTo}/{dirs[_]}";
+					addDirReference = $"{addDirReference}/{dirs[_]}";
+					if (Directory.Exists (copyTo) == false) {
+						Directory.CreateDirectory (copyTo);
 					}
 				}
 			}
-			CopyTo = string.Format ("{0}/{1}", CopyTo, fileName);
-			File.Copy (iFile, CopyTo);
+			copyTo = $"{copyTo}/{fileName}";
+			File.Copy (iFile, copyTo);
 
-			iAddFilePath = string.Format ("{0}/{1}", addDirReference, fileName);
+			iAddFilePath = $"{addDirReference}/{fileName}";
 		}
 
-		static void PreSetFolderToProject(string iProjectDir, string iFolder, ref string iCopyTo, ref string iAddDirReference) {
+		private static void PreSetFolderToProject(string iProjectDir, string iFolder, ref string iCopyTo, ref string iAddDirReference) {
 			iAddDirReference = "Classes/Plugins";
-			iCopyTo = string.Format ("{0}/{1}", iProjectDir, iAddDirReference);
+			iCopyTo = $"{iProjectDir}/{iAddDirReference}";
 			if (Directory.Exists (iCopyTo) == false) {
 				Directory.CreateDirectory (iCopyTo);
 			}
-			string strTmp = iFolder;
-			string ignorePath = "Assets/Packages/";
-			int Index = iFolder.LastIndexOf (ignorePath);
-			if (-1 == Index) {
+			var strTmp = iFolder;
+			var ignorePath = "Assets/Packages/";
+			var index = iFolder.LastIndexOf (ignorePath, StringComparison.Ordinal);
+			if (-1 == index) {
 				ignorePath = "Assets/";
-				Index = iFolder.LastIndexOf (ignorePath);
+				index = iFolder.LastIndexOf (ignorePath, StringComparison.Ordinal);
 			}
-			Index += ignorePath.Length;
-			strTmp = strTmp.Substring (Index);
+			index += ignorePath.Length;
+			strTmp = strTmp.Substring (index);
 
-			string[] dirs = strTmp.Split ('/');
-			for (int i = 0; i < dirs.Length; ++i) {
-				iCopyTo = string.Format ("{0}/{1}", iCopyTo, dirs[i]);
-				iAddDirReference = string.Format ("{0}/{1}", iAddDirReference, dirs[i]);
+			var dirs = strTmp.Split ('/');
+			for (var _ = 0; _ < dirs.Length; ++_) {
+				iCopyTo = $"{iCopyTo}/{dirs[_]}";
+				iAddDirReference = $"{iAddDirReference}/{dirs[_]}";
 				if (Directory.Exists (iCopyTo) == false) {
 					Directory.CreateDirectory (iCopyTo);
 				}
 			}
-			List<string> files = GetAllFiles (iFolder);
-			foreach (string loop in files) {
+			var files = GetAllFiles (iFolder);
+			foreach (var loop in files) {
 				if (loop.EndsWith (".meta") == true) {
 					continue;
 				}
-				int lastIndex = loop.LastIndexOf ("/");
-				string fileName = loop.Substring ( lastIndex + 1);
-				fileName = string.Format ("{0}/{1}", iCopyTo, fileName);
+				var lastIndex = loop.LastIndexOf ("/", StringComparison.Ordinal);
+				var fileName = loop.Substring ( lastIndex + 1);
+				fileName = $"{iCopyTo}/{fileName}";
 				File.Copy (loop, fileName);
 			}
 		}
@@ -290,37 +434,51 @@ namespace BuildSystem
 		/// </summary>
 		/// <returns>文件列表.</returns>
 		/// <param name="iDirection">文件目录.</param>
-		static List<string> GetAllFiles(string iDirection, string iFileName = null)
+		/// <param name="iFileName">文件名</param>
+		private static IEnumerable<string> GetAllFiles(string iDirection, string iFileName = null)
 		{   
-			List<string> filesList = new List<string>();
+			var filesList = new List<string>();
 
 			try   
 			{  
-				string fileName = iFileName;
-				if(string.IsNullOrEmpty(fileName) == true) {
+				var fileName = iFileName;
+				if(string.IsNullOrEmpty(fileName)) {
 					fileName = "*.*";
 				}
-				string[] files = Directory.GetFiles(iDirection, fileName, SearchOption.AllDirectories);
+				var files = Directory.GetFiles(iDirection, fileName, SearchOption.AllDirectories);
 
-				foreach(string strVal in files)
+				foreach(var strVal in files)
 				{
 					if(string.IsNullOrEmpty(strVal)) {
 						continue;
 					}
-					if(strVal.EndsWith(".ds_store") == true) {
+					if(strVal.EndsWith(".ds_store")) {
 						continue;
 					}
 					filesList.Add(strVal);
 				}
 
 			}  
-			catch (System.IO.DirectoryNotFoundException exp)   
+			catch (DirectoryNotFoundException exp)   
 			{  
-				BuildLogger.LogException ("The Directory is not exist!!!(dir:{0} detail:{1})", 
-					iDirection, exp.Message);
+				Loger.BuildErrorLog($"The Directory is not exist!!!(dir:{iDirection} detail:{exp.Message})");
 			} 
 
 			return filesList;
 		}
+
+
+		[PostProcessBuild(998)]
+		public static void OnPostprocessAndroidBuild(BuildTarget iTarget, string iBuiltProjectPath)
+		{
+
+			if (iTarget != BuildTarget.Android) {
+				return;
+			}
+			if(string.IsNullOrEmpty(iBuiltProjectPath)) {
+			}
+			
+		}
+
 	}
 } //namespace BuildSystem

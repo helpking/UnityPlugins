@@ -7,21 +7,27 @@
 
 #### [1.1.架构](./General.md#11%E6%9E%B6%E6%9E%84-1)
 
-#### [1.2.共通](./General.md#12%E5%85%B1%E9%80%9A-1)
+#### [1.2.Common](./General.md#12%E5%85%B1%E9%80%9A-1)
 
-##### [1.2.1.类方法扩展](./General.md#121%E7%B1%BB%E6%96%B9%E6%B3%95%E6%89%A9%E5%B1%95-1)
+##### [1.2.1. 类扩展-ClassExtension](./General.md#121%E7%B1%BB%E6%96%B9%E6%B3%95%E6%89%A9%E5%B1%95-1)
+
+##### [1.2.2. Asset设定文件-AssetBase]()
+
+##### [1.2.3.其他扩展]()
 
 ##### [1.3.日志](./General.md#131%E6%97%A5%E5%BF%97-1)
 
 ##### [1.3.1.分类&等级分类](./General.md#1311%E5%88%86%E7%B1%BB%E7%AD%89%E7%BA%A7%E5%88%86%E7%B1%BB-1)
 
-##### [1.3.2.日志文件输出](./General.md#1313%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E8%BE%93%E5%87%BA-1)
+##### [1.3.2.重定向]()
 
-#### [1.4.工具](./General.md#13%E5%B7%A5%E5%85%B7-1)
+##### [1.3.3.日志文件输出](./General.md#1313%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E8%BE%93%E5%87%BA-1)
 
-#### [1.5.其他](./General.md#14%E5%85%B6%E4%BB%96-1)
+#### [1.4.Utils](./General.md#141process-1)
 
-##### [1.5.1.Process](./General.md#141process-1)
+#### [1.5.Process](./General.md#141process-1)
+
+#### [1.6.Models](./General.md#14%E5%85%B6%E4%BB%96-1)
 
 --------------------------------
 
@@ -29,6 +35,29 @@
 [返回目录](./General.md#%E7%9B%AE%E5%BD%95)
 
 工程架构设计尽量采用分层设计。以便能在以后的新项目中能`横向扩展`和避免`重复开发`。
+
+* `类命名空间规则`
+ 
+类命名空间规则：与工程实际文件夹结构保持一致。
+
+| `图 1-1` 类命名规则 |
+| :-----: |
+|![namespace](./ReadMe/namespace.png)| 
+
+* 文件夹目录规则
+
+为了能保持`Packages`目录下各个模块的相对独立想。采取了以文件夹为单位的`类插件`设计。详情参看:[1.1.架构]()。除了在`1.1.架构`中描述的相对依赖关系以外，尽量保持各个模块的相对独立性。以便在新项目中能有更方便的移植性，又能自由快速的建立最初的架构。比如新项目中我需要的`Commoand`模块。那么我们要做的是：除拷贝`Commoand`以外，将它所依赖的基础模块`Common`，`Logs`，`Untils`和`Settings`。以及编辑器模块`AssetBundles`,`BuildSystem`和`Defines`，移植到新工程即可。
+
+基于上述考虑，各个模块的基本文件夹结构规则如下：
+
+以`Common`为例：
+
+| `图 1-2` 模块目录结构 |
+| :-----: |
+|![modoul_dir](./ReadMe/modoul_dir.png)| 
+
+* 编辑器专有目录`Editor`。该目录在每一个模块目录中均保持独立存在。为的是，针对本模块的编辑扩展保持相对的独立性。
+* 针对其他的目录不做要求，原则上按功能区分。
 
 ### 1.1.架构
 [返回目录](./General.md#%E7%9B%AE%E5%BD%95)
@@ -49,30 +78,34 @@
 | Logs | 日志模块 | `Development Mode Only` | 重定向了Unity日志。并且对日志进行了分级。可以通过日志等级过滤输出的日志。<BR/>该模块与`Common`为相互依赖关系。 |
 | Utils | 工具模块 | Both | 定义了一些全局用的工具类。<BR/> 详细内容包含如下：<BR/> * UtilsAsset:`*.asset文件相关操作`<BR/> * UtilsDateTime:`时间/日期相关操作`<BR/> * UtilsJson:`Json序列化操作`<BR/> * UtilsBytes:`二进制数据处理模块`<BR/> * UtilsLua:`保留` <BR/> * UtilsLog `日志相关`<BR/> * UtilsTools `工具类` |
 | AssetBundles | AssetBundles 打包/加载用模块 | Both |  包含资源打包设定，打包文件依赖列表，以及打包结果列表导出等功能。。<BR/> 详细内容包含如下：<BR/> * AssetBundlesManager `AssetBundles加载管理器` <BR/> * BundlesConfig `打包设定文件`<BR/> * BundlesMap `打包依赖文件` <BR/> * BundlesResult `打包结果列表` <BR/> * DataLoader `AB加载模块。`可以自动切换是在Resources目录下还是下载目录下。 |
-| BuildSystem | 打包系统 | `Editor Mode Only` | 包含打包日志的输出，以及Android/iOS打包的相关设定。<BR/> 详细内容包含如下： <BR/> * AndroidSDK `AndroidSDK的扩展。如：华为，天鸽+易接`。<BR/> * iOS `导出用Xcode相关设定` <BR/> * Settings `Android/iOS打包相关设定。目前只包含iOS(即XCode)` |
-| Defines | 宏定义 | `Editor Mode Only` | 全局宏定义设定 |
+| BuildSystem | 打包系统 | `Editor Mode Only` | 包含Android/iOS打包的相关设定。<BR/> 详细内容包含如下： <BR/> * AndroidSDK `AndroidSDK的扩展。如：华为，天鸽+易接`。<BR/> * iOS `导出用Xcode相关设定` <BR/> * Settings `Android/iOS打包相关设定。目前只包含iOS(即XCode)` |
+| Defines | 宏定义 | `Editor Mode Only` | 全局宏定义设定<BR/>* 支持命令行。 |
+| Process | 系统进程相关设定 | `Editor Mode Only` | Unity3d工程中有时候需要执行一些脚本。来部署一些设定。考虑到OSX系(`Shell`)/Windows系(`*.bat`)都与平台相关，所以选用Python。 |
 | Settings | 系统信息设定 | Both | 定义了App系统级别的相关设定。<BR/> 详细内容包含如下：<BR/> * 一般信息设定 <BR/> * 音效相关设定 <BR/> * 网络设定 <BR/> * Tips相关设定。用于下载进度条/加载进度条。在进行中时动态刷线一些相关信息的刷新。`此处会与本地化有所关联。` |
 | Command | 命令行设定 | `Editor Mode Only` | 用于部署`Teamcity`或者`Jenkins`(推荐)中，自动打包时使用。<BR/> 详细内容包含如下：<BR/> * AssetBundlesBuild:`AB包打包` <BR/> * DefinesWindow:`宏定义窗口` <BR/> * ProjectBuild:`Android/iOS打包` |
-| Process | 系统进程相关设定 | `Editor Mode Only` | Unity3d工程中有时候需要执行一些脚本。来部署一些设定。考虑到OSX系(`Shell`)/Windows系(`*.bat`)都与平台相关，所以选用Python。 |
+| Import | 外部Unity插件导入 | Both | 第三方的Unity插件导入。 |
 | UI | UI相关脚本定义 | Both |详细内容包含如下：<BR/> * AppVersionInfo `APP版本信息`<BR/> * DontDestroy `不释放Gameobject对象脚本` <BR/> * HandleDefines `全局句柄定义` <BR/> * IProgress `进度条相关接口定义。可适用于加载进度条/下载进度条` <BR/> * ProgressTips `进度条Tips` <BR/> * UIImageAutoNativeSize `自动显示Image原始尺寸`  |
 | SE | 音效相关设定 | Both | 包含：SE+BGM。<BR/> 详细设定与音效管理器关联。 |
 | Network | 网络相关设定 | Both | 包含http/https/socket等相关操作，以及request/response等相关接口定义，消息的派发等等<BR/>`当前版本为保留版本，尚未实现上述功能。` |
+| GUIExtend | GUI扩展&增强模块 | Both | 支持以下操作(`目前还在开发和扩展中`): <BR/> * Inspector视图扩展 <BR/> * Windows视图扩展 |
+| Models | 模型网格编辑模块 | `Editor Mode Only` | 支持以下操作: <BR/> * 网格合并<BR/> * 模型降面<BR/> * 材质&纹理合并<BR/> * 资源规格导出 |
+| Dynamic | 动态加载模块 | Both | 支持以下操作(`目前还在开发和扩展中`): <BR/> * `大世界`地形编辑<BR/> * 场景编辑<BR/> * 场景动态加载&摄像机/人物剔除。|
 
-### 1.2.共通
+
+### 1.2.Common
 [返回目录](./General.md#%E7%9B%AE%E5%BD%95)
 
-共通模块包含以下类
+共通模块包含以下几个子模块
 ```
-* ClassExtension
-* DataBase
-* AssetBase
-* EditorBase
-* ErrorInfo
-* HandlersDefine
-* ManagerBase
-* OptionsDefine
-* SingletonBase
+* Base -> 基础模块
+* Comparer -> 比较模块
+* Const -> 常量模块
+* Counter -> 计数模块
+* Editor -> 编辑器模块
+* Extend -> 扩展强化模块
 ```
+
+#### 1.2.1. 类扩展-ClassExtension
 
 * ClassExtension
 
@@ -148,7 +181,7 @@
 上述的几个扩展类不仅仅可以用于`*.asset`文件的数据部分定义，也可以用在网络通信中的请求和回复数据的自动解析。
 
 
-* AssetBase
+#### 1.2.2. Asset设定文件-AssetBase
 
 该类为所有`*.asset`文件的基类，定义了文件的定义，导入/导出（*.json）等接口定义。
 
@@ -188,117 +221,6 @@
 | `图 1-2-1` BundlesConfig.asset |
 | :-----: |
 |![BundlesConfig](./ReadMe/General/bundlesConfig.png)|
-
-* ErrorInfo
-
-错误信息定义。暂时只定义了以下结构，以后可根据实际情况扩展用。
-
-``` cs
-	/// <summary>
-	/// 错误详细.
-	/// </summary>
-	public struct ErrorInfo {
-		/// <summary>
-		/// 失败类型.
-		/// </summary>
-		public int Code;
-		/// <summary>
-		/// 详细信息.
-		/// </summary>
-		public string Detail;
-		/// <summary>
-		/// 重试次数.
-		/// </summary>
-		public string Strace;
-	}
-```
-
-* HandlersDefine
-
-一些全局的事件委托定义。暂时命名为句柄。目前只定义了以下句柄，以后可根据实际情况扩展用。
-
-``` C#
-	/// <summary>
-	/// 公共句柄定义
-	/// </summary>
-	public delegate void ValueChangerHandler();
-```
-
-* SingletonBase
-
-单键类定义。
-
-1. `SingletonBase`
-
-一般单键类定义。可用于非脚本(Unity3d)的单键类定义。
-该类为泛型类。具体定义如下：
-
-``` C#
-public class SingletonBase<T> : ClassExtension where T : class, new() {
-    ...
-}
-```
-
-`属性`
-
-| 属性 | 说明 | 备注 |
-| :-- | :-- | :-- |
-| Instance | 单键类的实例 | - |
-
-`方法/函数`
-
-| 方法/函数 | 说明 | 返回值 | 备注 |
-| :-- | :-- | :-- | :-- |
-| void Init() | 初始化函数 | - | - |
-| void Reset() | 重置函数 | - | - |
-
-
-2. `SingletonMonoBehaviourBase`
-
-一般单键类定义。可用于脚本(Unity3d)的单键类定义。
-该类为泛型类。具体定义如下：
-
-``` cs
-public class SingletonMonoBehaviourBase<T> : MonoBehaviourExtension 
-        where T : SingletonMonoBehaviourBase<T> {
-    ...
-}
-```
-
-`属性`
-
-| 属性 | 说明 | 备注 |
-| :-- | :-- | :-- |
-| Instance | 单键类的实例 | - |
-| Initialized | 初始化标识位 | - |
-
-`方法/函数`
-
-| 方法/函数 | 说明 | 返回值 | 备注 |
-| :-- | :-- | :-- | :-- |
-| void SingletonStart() | 开始函数。与Unity3d的脚本的Start()类似。 | - | - |
-| void SingletonAwake() | Awake函数。与Unity3d的脚本的Awake()类似。 | - | - |
-| void SingletonDestroy() | Destroy函数。与Unity3d的脚本的OnDestroy()类似。 | - | - |
-
-* ManagerBase
-
-相关管理器基类定义。
-
-`IManagerBase`:管理器接口定义如下：
-
-| 方法/函数 | 说明 | 返回值 | 备注 |
-| :-- | :-- | :-- | :-- |
-| void OnStateEnter(string iCurState, string iNextState) | 状态进入函数 | - | 与游戏状态管理器相关联。<BR/>游戏状态管理器`保留，目前版本暂不包括`。 |
-| void OnStateExit(string iCurState, string iNextState) | 状态退出函数 | - | 同上 |
-| void OnMemoryWarning(float iCurrMem, float iDevMem, float iPerc) | 内存警告 | - | `尚未支持该功能` |
-| void Close() | 关闭函数 | - | `尚未支持该功能` |
-
-实现上述接口的有以下几个类：
-
-``` C#
-1. ManagerBehaviourBase<T> : SingletonMonoBehaviourBase<T>, 
-        IManagerBase where T : ManagerBehaviourBase<T>
-```
 
 * OptionsDefine
 
@@ -341,7 +263,7 @@ public class SingletonMonoBehaviourBase<T> : MonoBehaviourExtension
 2. OptionsBaseData : JsonDataBase<OptionsBaseData> 
 ```
 
-#### 1.2.1.类方法扩展
+#### 1.2.3.其他扩展
 [返回目录](./General.md#%E7%9B%AE%E5%BD%95)
 
 `提示`：
@@ -424,7 +346,157 @@ Gizmos类扩展。
 | 1 | public static void `DrawViewFrustum`(Camera iCamera, Color iColor) | 绘制视锥体 | - |
 | 2 | public static void `DrawViewFrustumEx`(Camera iCamera, float iLeftX, float iRightX, float iDownY, float iUpY, Color iColor) | 同上 | - |
 
-### 1.3.工具
+### 1.3.日志
+[返回目录](./General.md#%E7%9B%AE%E5%BD%95)
+
+定义了日志等级以及分类。并重定向了日志，用颜色加以区分。也可以通过系统设定来指定是否将日志输出到日志文件中，以备排查。日志系统的输出(包括日志文件的输出，都采用了`JobSystem`来实现，尽量不占用`主线程的CPU消耗`。)
+
+#### 1.3.1.分类&等级分类
+[返回目录](./General.md#%E7%9B%AE%E5%BD%95)
+
+``` cs
+    /// <summary>
+    /// Log日志等级定义（级别越高，日志输出越少。）.
+    /// 输出的日志只输出大于等于当前日志级别的日志。
+    /// </summary>
+    public enum LogLevel {
+        Invalid = -1,
+        /// <summary>
+        /// 全部输出(A).
+        /// </summary>
+        All = 0,
+        /// <summary>
+        /// Debug(T).
+        /// </summary>
+        Debug = 1,
+        Test = Debug,
+        /// <summary>
+        /// 信息:运行(RI).
+        /// </summary>
+        RInfo = 2,
+        /// <summary>
+        /// 警告(W).
+        /// </summary>
+        Warning = 3,
+        /// <summary>
+        /// 信息:逻辑(LI).
+        /// </summary>
+        LInfo = 4,
+        /// <summary>
+        /// 错误(E).
+        /// </summary>
+        Error = 5,
+        /// <summary>
+        /// 致命日志(F).
+        /// </summary>
+        Fatal = 6,
+        /// <summary>
+        /// 全关闭.
+        /// </summary>
+        Off = 7
+    }
+```
+
+`注意`:
+
+* 日志输出只输出日志等级`高于(包括等于)`当前日志等级的日志。例如：当前等级为：LInfo - 信息:逻辑(LI)。则，日志只输出：LInfo - 信息:逻辑(LI)/Error - 错误(E)/Fatal - 致命日志(F)的日志信息。
+* 日志等级设定，详细参看:[2.系统设定](./SysSettings.md#2%E7%B3%BB%E7%BB%9F%E8%AE%BE%E5%AE%9A-1)
+* 日志分为:`一般日志`和`打包日志`。详情参看:[1.3.1.2.重定向](./General.md#1312%E9%87%8D%E5%AE%9A%E5%90%91-1)
+
+##### 1.3.2.重定向
+[返回目录](./General.md#%E7%9B%AE%E5%BD%95)
+
+日志的格式
+
+* 一般日志
+
+> [YYYY-MM-DD HH:MM:SS.ms][+前后花费时间 ms][日志No][日志Tag][类名] `日志内容`
+
+如下图：
+
+| `图 1-3-1-2-1` 日志输出 |
+| :-----: |
+|![日志输出窗口](./ReadMe/General/log_console_info.png)|
+
+`备注`:
+
+①:上述日志输出的实际内容
+
+2019-12-23 17:48:59.921(+0 ms)[0][`RI`] [LogTest] OnEnable():Log args test(string - Info)
+
+`RI`:为日志等级Tag。与日志等级定义中`注释内容`一致。并对日志的等级做了`颜色`区分。
+
+②:双击当前日志，可以根据日志栈的内容，定位到相应的代码中。
+
+上述日志在Android环境/真机模式下可以配合`adb logcat`命令对日志进行`关键字`过滤。命令如下：
+
+```shell
+ adb logcat | grep "LogTest"
+```
+
+`注意`：`adb`和`logcat`请自行`度娘`脑补。
+
+* 打包日志
+
+打包日志，为了精确区分当前打包的状态，并配合TeamCity/Jenkins上打包状态的追踪，所以相关日志处理与一般日志相比会有所区别(当然`颜色`也同样有所区别。)。我们先来看看打包日志的接口。
+
+| No | 方法 | 说明 | 备注 |
+| :-: | :-- | :-- | :-- |
+| 1 | public static void BuildStart(string iScope, string iLog = null) | 打包日志开始 | * iScope : `打包范围`。一般为`方法名`。会压入当前打包信息栈中，用以记录当前打包范围。<BR/> * 以`+`标示。<BR/>* iLog : 日志内容。<BR/> * 如`图 1-3-1-2-2` 打包日志输出中的① <BR/> * 该方法与`BuildEnd`必须成对出现，且在执行的打包方法(Scope的开始和结尾) |
+| 2 | public static void BuildLog(string iLog) | 一般打包日志输出 | * 会记录当前打包所在的Scope，并输出予以区分<BR/> * 以` (空格)`标示。<BR/> * 如`图 1-3-1-2-2` 打包日志输出中的② | 
+| 3 | public static void BuildWarningLog(string iLog) | 警告打包日志输出 | * 会记录当前打包所在的Scope，并输出予以区分<BR/> * 以`*`标示。<BR/> * 如`图 1-3-1-2-2` 打包日志输出中的③ <BR/> * 日志输出颜色与一般警告日志输出颜色一致。 |
+| 4 | public static void BuildErrorLog(string iLog) | 错误打包日志输出 | * 会记录当前打包所在的Scope，并输出予以区分<BR/> * 以`@`标示。<BR/> * 如`图 1-3-1-2-2` 打包日志输出中的④ <BR/> * 日志输出颜色与一般错误日志输出颜色一致。 |
+| 5 | public static void BuildEnd() | 打包日志结束 | * 会将当前打包的`Scope`弹出打包栈，以表示当前打包`Scope`的结束。<BR/> * 以`-`标示。<BR/> * 如`图 1-3-1-2-2` 打包日志输出中的⑤ <BR/> * 该方法与`BuildStart`必须成对出现，且在执行的打包方法(Scope的结尾) |
+
+代码实例如下：
+
+``` cs
+    /// <summary>
+    /// 日志测试脚本
+    /// </summary>
+    public class LogTest : MonoBehaviour
+    {
+        void Awake()
+        {
+    #if UNITY_EDITOR
+            // 实际的执行的操作开始时
+            Loger.BuildStart("OnEnable");
+            
+            // 实际的执行的操作代码
+            ...
+            Loger.BuildLog("log");
+            
+            // 实际的执行的操作代码中发生警告时
+            ...
+            Loger.BuildWarningLog("Warning");
+            
+            // 实际的执行的操作代码中发生错误时
+            ...
+            Loger.BuildErrorLog("Error");
+
+            // 实际的执行的操作结束时
+            Loger.BuildEnd();
+    #endif
+        }
+    } 
+```
+
+| `图 1-3-1-2-2` 打包日志输出 |
+| :-----: |
+|![打包日志输出窗口](./ReadMe/General/log_build_info.png)|
+
+#### 1.3.3.日志文件输出
+[返回目录](./General.md#%E7%9B%AE%E5%BD%95)
+
+日志文件的输出详细设定参看:[2.系统设定](./SysSettings.md#2%E7%B3%BB%E7%BB%9F%E8%AE%BE%E5%AE%9A-1)
+
+`注意`:
+
+* 默认目录为当前工程目录下的'Output/Logs'下。若是打包的场合，则为'Output/Logs/打包No/ios或者Anroid/Logs'。打包模式下，输出目录也可有`外部参数`指定。详细参看:[3.1.命令行参数](./BuildSystem.md#31%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0-1)
+* 日志文件前缀以`Build/Run`区分是`打包日志`还是`运行日志`。
+* 打包文件大小可以在[2.系统设定](./SysSettings.md#2%E7%B3%BB%E7%BB%9F%E8%AE%BE%E5%AE%9A-1)中进行设定，单位为:`MB`
+
+### 1.4.Utils
 [返回目录](./General.md#%E7%9B%AE%E5%BD%95)
 
 工具类中包含以下相关部分：
@@ -509,160 +581,7 @@ Json数据和序列化对象相互转换的工具类。（泛型）
 | static string GetUnitByDataSize(long iDataSize)  | 根据数据大小取得数据单位 | 数据单位(KB/MB) | - |
 | static void HttpsCertificateSettings() | Https证书相关设定 | - | 该设定可以跳过证书验证。 |
 
-#### 1.3.1.日志
-[返回目录](./General.md#%E7%9B%AE%E5%BD%95)
-
-定义了日志等级以及分类。并重定向了日志，用颜色加以区分。也可以通过系统设定来指定是否将日志输出到日志文件中，以备排查。日志系统的输出(包括日志文件的输出，都采用了`JobSystem`来实现，尽量不占用`主线程的CPU消耗`。)
-
-##### 1.3.1.1.分类&等级分类
-[返回目录](./General.md#%E7%9B%AE%E5%BD%95)
-
-``` cs
-    /// <summary>
-    /// Log日志等级定义（级别越高，日志输出越少。）.
-    /// 输出的日志只输出大于等于当前日志级别的日志。
-    /// </summary>
-    public enum LogLevel {
-        Invalid = -1,
-        /// <summary>
-        /// 全部输出(A).
-        /// </summary>
-        All = 0,
-        /// <summary>
-        /// Debug(T).
-        /// </summary>
-        Debug = 1,
-        Test = Debug,
-        /// <summary>
-        /// 信息:运行(RI).
-        /// </summary>
-        RInfo = 2,
-        /// <summary>
-        /// 警告(W).
-        /// </summary>
-        Warning = 3,
-        /// <summary>
-        /// 信息:逻辑(LI).
-        /// </summary>
-        LInfo = 4,
-        /// <summary>
-        /// 错误(E).
-        /// </summary>
-        Error = 5,
-        /// <summary>
-        /// 致命日志(F).
-        /// </summary>
-        Fatal = 6,
-        /// <summary>
-        /// 全关闭.
-        /// </summary>
-        Off = 7
-    }
-```
-
-`注意`:
-
-* 日志输出只输出日志等级`高于(包括等于)`当前日志等级的日志。例如：当前等级为：LInfo - 信息:逻辑(LI)。则，日志只输出：LInfo - 信息:逻辑(LI)/Error - 错误(E)/Fatal - 致命日志(F)的日志信息。
-* 日志等级设定，详细参看:[2.系统设定](./SysSettings.md#2%E7%B3%BB%E7%BB%9F%E8%AE%BE%E5%AE%9A-1)
-* 日志分为:`一般日志`和`打包日志`。详情参看:[1.3.1.2.重定向](./General.md#1312%E9%87%8D%E5%AE%9A%E5%90%91-1)
-
-##### 1.3.1.2.重定向
-[返回目录](./General.md#%E7%9B%AE%E5%BD%95)
-
-日志的格式
-
-* 一般日志
-
-> [YYYY-MM-DD HH:MM:SS.ms][+前后花费时间 ms][日志No][日志Tag][类名] `日志内容`
-
-如下图：
-
-| `图 1-3-1-2-1` 日志输出 |
-| :-----: |
-|![日志输出窗口](./ReadMe/General/log_console_info.png)|
-
-`备注`:
-
-①:上述日志输出的实际内容
-
-2019-12-23 17:48:59.921(+0 ms)[0][`RI`] [LogTest] OnEnable():Log args test(string - Info)
-
-`RI`:为日志等级Tag。与日志等级定义中`注释内容`一致。并对日志的等级做了`颜色`区分。
-
-②:双击当前日志，可以根据日志栈的内容，定位到相应的代码中。
-
-上述日志在Android环境/真机模式下可以配合`adb logcat`命令对日志进行`关键字`过滤。命令如下：
-
-```shell
- adb logcat | grep "LogTest"
-```
-
-`注意`：`adb`和`logcat`请自行`度娘`脑补。
-
-* 打包日志
-
-打包日志，为了精确区分当前打包的状态，并配合TeamCity/Jenkins上打包状态的追踪，所以相关日志处理与一般日志相比会有所区别(当然`颜色`也同样有所区别。)。我们先来看看打包日志的接口。
-
-| No | 方法 | 说明 | 备注 |
-| :-: | :-- | :-- | :-- |
-| 1 | public static void BuildStart(string iScope, string iLog = null) | 打包日志开始 | * iScope : `打包范围`。一般为`方法名`。会压入当前打包信息栈中，用以记录当前打包范围。<BR/> * 以`+`标示。<BR/>* iLog : 日志内容。<BR/> * 如`图 1-3-1-2-2` 打包日志输出中的① <BR/> * 该方法与`BuildEnd`必须成对出现，且在执行的打包方法(Scope的开始和结尾) |
-| 2 | public static void BuildLog(string iLog) | 一般打包日志输出 | * 会记录当前打包所在的Scope，并输出予以区分<BR/> * 以` (空格)`标示。<BR/> * 如`图 1-3-1-2-2` 打包日志输出中的② | 
-| 3 | public static void BuildWarningLog(string iLog) | 警告打包日志输出 | * 会记录当前打包所在的Scope，并输出予以区分<BR/> * 以`*`标示。<BR/> * 如`图 1-3-1-2-2` 打包日志输出中的③ <BR/> * 日志输出颜色与一般警告日志输出颜色一致。 |
-| 4 | public static void BuildErrorLog(string iLog) | 错误打包日志输出 | * 会记录当前打包所在的Scope，并输出予以区分<BR/> * 以`@`标示。<BR/> * 如`图 1-3-1-2-2` 打包日志输出中的④ <BR/> * 日志输出颜色与一般错误日志输出颜色一致。 |
-| 5 | public static void BuildEnd() | 打包日志结束 | * 会将当前打包的`Scope`弹出打包栈，以表示当前打包`Scope`的结束。<BR/> * 以`-`标示。<BR/> * 如`图 1-3-1-2-2` 打包日志输出中的⑤ <BR/> * 该方法与`BuildStart`必须成对出现，且在执行的打包方法(Scope的结尾) |
-
-代码实例如下：
-
-``` cs
-	/// <summary>
-	/// 日志测试脚本
-	/// </summary>
-	public class LogTest : MonoBehaviour
-	{
-	    void Awake()
-	    {
-	#if UNITY_EDITOR
-	        // 实际的执行的操作开始时
-	        Loger.BuildStart("OnEnable");
-	        
-	        // 实际的执行的操作代码
-	        ...
-	        Loger.BuildLog("log");
-	        
-	        // 实际的执行的操作代码中发生警告时
-	        ...
-	        Loger.BuildWarningLog("Warning");
-	        
-	        // 实际的执行的操作代码中发生错误时
-	        ...
-	        Loger.BuildErrorLog("Error");
-
-	        // 实际的执行的操作结束时
-	        Loger.BuildEnd();
-	#endif
-	    }
-	} 
-```
-
-| `图 1-3-1-2-2` 打包日志输出 |
-| :-----: |
-|![打包日志输出窗口](./ReadMe/General/log_build_info.png)|
-
-##### 1.3.1.3.日志文件输出
-[返回目录](./General.md#%E7%9B%AE%E5%BD%95)
-
-日志文件的输出详细设定参看:[2.系统设定](./SysSettings.md#2%E7%B3%BB%E7%BB%9F%E8%AE%BE%E5%AE%9A-1)
-
-`注意`:
-
-* 默认目录为当前工程目录下的'Output/Logs'下。若是打包的场合，则为'Output/Logs/打包No/ios或者Anroid/Logs'。打包模式下，输出目录也可有`外部参数`指定。详细参看:[3.1.命令行参数](./BuildSystem.md#31%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0-1)
-* 日志文件前缀以`Build/Run`区分是`打包日志`还是`运行日志`。
-* 打包文件大小可以在[2.系统设定](./SysSettings.md#2%E7%B3%BB%E7%BB%9F%E8%AE%BE%E5%AE%9A-1)中进行设定，单位为:`MB`
-
-### 1.4.其他
-[返回目录](./General.md#%E7%9B%AE%E5%BD%95)
-
-#### 1.4.1.Process
+### 1.5.Process
 [返回目录](./General.md#%E7%9B%AE%E5%BD%95)
 
 Unity3d工程中有时候需要执行一些脚本。来部署一些设定。考虑到OSX系(`Shell`)/Windows系(`*.bat`)都与平台相关，所以选用Python。
@@ -736,3 +655,53 @@ if __name__ == '__main__':
 | `图 1-4-1-1` Python运行结果 |
 | :-----: |
 |![framework](./ReadMe/General/python-sample-result.png)|
+
+### 1.6.Models
+[返回目录](./General.md#%E7%9B%AE%E5%BD%95)
+
+本模块支持以下功能
+
+* 网格合并
+* 模型降面
+* 纹理合并
+* 材质合并
+* 着色器转换
+
+编辑器界面如下：
+
+| `图 1-6-1` 网格编辑器 |
+| :-----: |
+|![ModelsMeshEditor](./ReadMe/Models/ModelsMeshEditor.png)|
+
+| No | 名称 | 说明 | 备注 |
+| :-: | :-: | :- | :- |
+| ① | Default | 默认资源导出 | 可以将美术的初始资源。以Prefab(预制体)为基本单位。经过`同材质网格合并`后的资源，将会按照`⑨`中指定的路径，对`网格数据`,`材质数据`,`纹理数据`,`着色器数据`等按规格导出。<BR/> 导出目录参看：`图 1-6-2` 数据导出 |
+| ② | PC | PC平台资源导出 | 以`①`中导出的`默认资源`为`数据源`。进行降面处理。<BR/>注意：<BR/>PC平台下，相对于默认资源`仅处理网格降面`处理。<BR/>该处理处理的对象是默认资源中的`同材质`节点上的网格，并未对所有网格合并成一个网格，所以有可能出现`降面率`过低是，模型中间出现空洞。 |
+| ③ | Android | Android平台资源导出 | 以`①`中导出的`默认资源`为`数据源`。进行`网格降面`,`材质合并`,`纹理合并`,`着色器转换`等处理。 |
+| ④ | iOS | iOS平台资源导出 | 以`①`中导出的`默认资源`为`数据源`。进行`网格降面`,`材质合并`,`纹理合并`,`着色器转换`等处理。 |
+| ⑤ | Settings | 设定 | 目前仅对各个平台转换时的纹理格式信息设定。 | 
+| ⑥ | ToolsBar | 工具栏 | 目前支持以下功能:<BR/> * 合计<BR/> * Import:设定信息导入。<BR/> * Export:设定信息导出<BR/> * Clear:清空 |
+| ⑦ | SearchBar | 搜索栏 | 支持过滤显示网格转换记录信息 | 
+| ⑧ | 模型转换列表 | - | 可以将想要转换的Prefab(预制体)拖入该区域。<BR/> 显示如下信息：<BR/> * 模型Icon：Icon图是动态生成。实际效果与当前运行场景的摄像机设定有关。<BR/> * 路径：导入的美术初始资源路径<BR/> * 详细信息：模型的物理信息。必须经过一次网格合并转换后，才会采集到数据。<BR/> * GPU渲染统计：当前模型在当前场景下加载，GPU的实际消耗数据统计。点击按钮`数据采样`即可获得该数据。<BR/> * 网格合并：进行同材质网格数据合并，并导出作为默认资源使用。<BR/> * 删除　|
+| ⑨ | 底部工具 | - | 主要功能包含以下：<BR/> * 指定导出目录<BR/> * 批量处理<BR/> * 批量删除 |
+
+| `图 1-6-2` 数据导出 |
+| :-----: |
+|![ExportData](./ReadMe/Models/export-default-dir.png)|
+
+平台转换功能一览
+
+| 功能 | Default | PC | Android | iOS |
+| :-: | :-: | :-: | :-: | :-: |
+| 网格合并 | ○ | ○ | ○ | ○ |
+| 模型降面 | × | ○ | ○ | ○ |
+| 纹理合并 | × | × | ○ | ○ |
+| 材质合并 | × | × | ○ | ○ |
+| 着色器转换 | × | × | ○ | ○ |
+
+* `注意`
+
+1）当前Unity在什么平台就只能转换那个平台的处理。如：当前平台为Android，则不能处理PC或者iOS的转换处理。
+
+2）在转换的时候必须在`Settings`中对相关纹理导入进行设定。否则会造成纹理失真，或转换错误等奇怪现象。
+
